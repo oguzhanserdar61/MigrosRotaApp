@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Migros Rota",
+    "slug": "migros-rota",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FF6600"
+    },
+    "scheme": "migrosrota",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.migros.rotaplanlayici",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Yakınımdaki mağazaları görmek için konumunuz gereklidir."
+      }
+    },
+    "android": {
+      "package": "com.migros.rotaplanlayici",
+      "permissions": [
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "baseUrl": "/MigrosRotaApp"
+    }
+  }
+}
