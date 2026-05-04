@@ -29,8 +29,7 @@
     ],
     "web": {
       "bundler": "metro",
-      "output": "static",
-      "baseUrl": "/MigrosRotaApp/"
+      "output": "static"
     }
   }
 }
