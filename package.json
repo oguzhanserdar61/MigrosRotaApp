@@ -1,6 +1,7 @@
 {
   "name": "migros-rota-app",
   "version": "1.0.0",
+  "homepage": "https://oguzhanserdar61.github.io/MigrosRotaApp",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
