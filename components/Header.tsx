@@ -16,7 +16,7 @@ export function Header() {
         />
       </View>
       <View style={styles.headerInfo}>
-        <Text style={styles.headerTitle}>ROTA PLANI</Text>
+        <Text style={styles.headerTitle}>ROTA PLANI v1.1</Text>
       </View>
       {seciliCount > 0 && (
         <View style={styles.selBadge}>

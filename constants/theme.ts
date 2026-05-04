@@ -1,6 +1,6 @@
 export const Colors = {
-  orange: '#FF6600',
-  orangeDark: '#E65C00',
+  orange: '#E65C00', // Hafif koyu turuncu (Değişiklik testi için)
+  orangeDark: '#BF4D00',
   orangeLight: '#FFF5E6',
   green: '#1A7F4B',
   bg: '#F7F5F2',
