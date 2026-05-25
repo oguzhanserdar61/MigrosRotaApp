@@ -27,6 +27,9 @@
       "expo-router",
       "expo-location"
     ],
+    "experiments": {
+      "baseUrl": "/MigrosRotaApp"
+    },
     "web": {
       "bundler": "metro",
       "output": "static"
