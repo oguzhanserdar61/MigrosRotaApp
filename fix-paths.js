@@ -28,6 +28,8 @@ function walk(dir) {
 
 if (fs.existsSync(distPath)) {
   console.log('Fixing paths for GitHub Pages...');
+  fs.writeFileSync(path.join(distPath, '.nojekyll'), '', 'utf8');
+  console.log('Added .nojekyll for GitHub Pages underscore paths');
   walk(distPath);
   console.log('All paths fixed!');
 } else {

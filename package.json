@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "predeploy": "npx expo export -p web && node fix-paths.js",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist --dotfiles",
     "preview": "npx expo export -p web && node fix-paths.js && npx serve dist"
   },
   "dependencies": {
