@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const distPath = path.join(__dirname, 'dist');
+const pagesBasePath = 'MigrosRotaApp';
 
 function walk(dir) {
   const files = fs.readdirSync(dir);
@@ -11,10 +12,10 @@ function walk(dir) {
       walk(filePath);
     } else if (file.endsWith('.html') || file.endsWith('.js') || file.endsWith('.json')) {
       let content = fs.readFileSync(filePath, 'utf8');
-      // Absolute yolları relative yollara çevir (/_expo -> _expo, /assets -> assets)
+      // GitHub Pages project base path'ini koru, sadece root'a bakan asset yollarını relative yap.
       const newContent = content
-        .replace(/src="\//g, 'src="./')
-        .replace(/href="\//g, 'href="./')
+        .replace(new RegExp(`src="/(?!${pagesBasePath}/)`, 'g'), 'src="./')
+        .replace(new RegExp(`href="/(?!${pagesBasePath}/)`, 'g'), 'href="./')
         .replace(/"\/_expo/g, '"./_expo')
         .replace(/"\/assets/g, '"./assets');
       
