@@ -4,6 +4,7 @@ import { Colors, getBrand } from '../constants/theme';
 import { BrandIcon } from './BrandIcon';
 import { useRotaStore } from '../store/rotaStore';
 import { hasValidCoords, type StoreRow } from '../utils/magazaData';
+import { pressHandlers } from '../utils/webPress';
 
 interface Props {
   row: StoreRow | null;
@@ -106,7 +107,7 @@ export function MagazaDetay({ row, onClose }: Props) {
             <Text style={styles.rowVal} numberOfLines={3}>{adres}</Text>
           </View>
           {telefon ? (
-            <Pressable style={styles.row} onPress={aramaYap}>
+            <Pressable style={styles.row} {...pressHandlers(aramaYap)}>
               <Text style={styles.rowKey}>Telefon</Text>
               <Text style={[styles.rowVal, styles.link]}>0{telefon.slice(3)}</Text>
             </Pressable>
@@ -118,12 +119,12 @@ export function MagazaDetay({ row, onClose }: Props) {
         </View>
 
         <View style={styles.actions}>
-          <Pressable style={[styles.btnMap, !validCoords && styles.btnDisabled]} onPress={haritaAc}>
+          <Pressable style={[styles.btnMap, !validCoords && styles.btnDisabled]} {...pressHandlers(haritaAc)}>
             <Text style={styles.btnMapText}>🗺 Haritada Gör</Text>
           </Pressable>
           <Pressable
             style={[styles.btnAdd, isSelected && styles.btnAdded, !validCoords && !isSelected && styles.btnDisabled]}
-            onPress={rotaSeciminiDegistir}
+            {...pressHandlers(rotaSeciminiDegistir)}
           >
             <Text style={styles.btnAddText}>
               {isSelected ? '✓ Rotadan Çıkar' : validCoords ? '+ Rotaya Ekle' : 'Koordinat Yok'}

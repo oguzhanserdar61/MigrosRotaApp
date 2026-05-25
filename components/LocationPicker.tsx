@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { Colors } from '../constants/theme';
 import { searchStores } from '../utils/magazaData';
+import { pressHandlers } from '../utils/webPress';
 
 interface LocationItem {
   lat: number;
@@ -93,7 +94,7 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
       <View style={styles.inputRow}>
         <Pressable 
           style={styles.input} 
-          onPress={() => setOpen(true)}
+          {...pressHandlers(() => setOpen(true))}
           hitSlop={8}
         >
           <Text style={[styles.inputText, !value && styles.placeholder]} numberOfLines={1}>
@@ -101,7 +102,7 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
           </Text>
         </Pressable>
         {value && (
-          <Pressable style={styles.clearBtn} onPress={() => onSelect(null)} hitSlop={8}>
+          <Pressable style={styles.clearBtn} {...pressHandlers(() => onSelect(null))} hitSlop={8}>
             <Text style={styles.clearText}>✕</Text>
           </Pressable>
         )}
@@ -154,7 +155,7 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
                 style={styles.list}
                 contentContainerStyle={styles.listContent}
                 renderItem={({ item }) => (
-                  <Pressable style={styles.option} onPress={() => pick(item)}>
+                  <Pressable style={styles.option} {...pressHandlers(() => pick(item))}>
                     <View style={styles.optionIconBox}>
                       <Text style={styles.optionIcon}>{item.isStore ? '🏪' : '📍'}</Text>
                     </View>

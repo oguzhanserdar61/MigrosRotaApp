@@ -15,6 +15,7 @@ import { useFilterStore } from '../../store/filterStore';
 import { useRotaStore } from '../../store/rotaStore';
 import { DB, filterStores, getIller, getIlceler } from '../../utils/magazaData';
 import type { StoreRow } from '../../utils/magazaData';
+import { pressHandlers } from '../../utils/webPress';
 
 import { LocationPicker } from '../../components/LocationPicker';
 
@@ -100,7 +101,7 @@ export default function MagazalarScreen() {
             onChangeText={searchAyarla}
             clearButtonMode="while-editing"
           />
-          <Pressable style={styles.resetBtn} onPress={sifirla}>
+          <Pressable style={styles.resetBtn} {...pressHandlers(sifirla)}>
             <Text style={styles.resetText}>✕ Sıfırla</Text>
           </Pressable>
         </View>
@@ -111,17 +112,17 @@ export default function MagazalarScreen() {
           <View style={styles.pointBtns}>
             <Pressable 
               style={[styles.pointBtn, pointMode === 'ozel' && styles.pointBtnActive]} 
-              onPress={() => setPointMode('ozel')}
+              {...pressHandlers(() => setPointMode('ozel'))}
             >
               <Text style={[styles.pointBtnText, pointMode === 'ozel' && styles.pointBtnActiveText]}>Özel</Text>
             </Pressable>
             <Pressable 
               style={[styles.pointBtn, pointMode === 'yok' && styles.pointBtnActive]} 
-              onPress={() => { 
+              {...pressHandlers(() => { 
                 setPointMode('yok');
                 startPointAyarla(null); 
                 endPointAyarla(null); 
-              }}
+              })}
             >
               <Text style={[styles.pointBtnText, pointMode === 'yok' && styles.pointBtnActiveText]}>Yok</Text>
             </Pressable>
@@ -140,13 +141,13 @@ export default function MagazalarScreen() {
                 <View style={styles.labelRow}>
                   <Text style={styles.pickerLabel}>Bitiş Noktası</Text>
                   <Pressable 
-                    onPress={() => {
+                    {...pressHandlers(() => {
                       if (startPoint) {
                         endPointAyarla(startPoint);
                       } else {
                         Alert.alert('Uyarı', 'Lütfen Başlangıç Noktası Seçiniz.');
                       }
-                    }}
+                    })}
                   >
                     <Text style={styles.returnBtn}>↺ Başlangıca Dön</Text>
                   </Pressable>

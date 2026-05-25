@@ -4,6 +4,7 @@ import {
   StyleSheet, Modal, TouchableOpacity, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { Colors } from '../constants/theme';
+import { pressHandlers } from '../utils/webPress';
 
 interface Props {
   label: string;
@@ -38,7 +39,7 @@ export function AutocompleteInput({ label, value, placeholder, options, onSelect
   return (
     <View style={styles.wrapper}>
       <Text style={styles.label}>{label}</Text>
-      <Pressable style={styles.input} onPress={() => setOpen(true)}>
+      <Pressable style={styles.input} {...pressHandlers(() => setOpen(true))}>
         <Text style={[styles.inputText, !value && styles.placeholder]}>
           {value || placeholder}
         </Text>
@@ -61,7 +62,7 @@ export function AutocompleteInput({ label, value, placeholder, options, onSelect
             <View style={styles.sheet}>
               <View style={styles.sheetHeader}>
                 <Text style={styles.sheetTitle}>{label} Seç</Text>
-                <Pressable onPress={() => setOpen(false)} hitSlop={12}>
+                <Pressable {...pressHandlers(() => setOpen(false))} hitSlop={12}>
                   <Text style={styles.closeBtn}>✕</Text>
                 </Pressable>
               </View>
@@ -83,7 +84,7 @@ export function AutocompleteInput({ label, value, placeholder, options, onSelect
                 renderItem={({ item }) => (
                   <Pressable
                     style={({ pressed }) => [styles.option, pressed && styles.optionPressed]}
-                    onPress={() => pick(item.value)}
+                    {...pressHandlers(() => pick(item.value))}
                   >
                     <Text style={[styles.optionText, item.value === value && styles.optionActive]}>
                       {item.value}

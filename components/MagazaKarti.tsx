@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { BrandIcon } from './BrandIcon';
 import { Colors, getBrand } from '../constants/theme';
 import type { StoreRow } from '../utils/magazaData';
+import { pressHandlers } from '../utils/webPress';
 
 interface Props {
   row: StoreRow;
@@ -18,7 +19,7 @@ export function MagazaKarti({ row, index, isSelected, isFirst, selIndex, onPress
 
   return (
     <Pressable
-      onPress={onPress}
+      {...pressHandlers(onPress)}
       style={({ pressed }) => [
         styles.container,
         isFirst && styles.firstContainer,

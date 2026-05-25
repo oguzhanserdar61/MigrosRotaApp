@@ -10,6 +10,7 @@ import { NumberWheelPicker } from '../../components/NumberWheelPicker';
 import { TimeWheelPicker } from '../../components/TimeWheelPicker';
 import { Header } from '../../components/Header';
 import { DB, getIller } from '../../utils/magazaData';
+import { pressHandlers } from '../../utils/webPress';
 
 export default function AyarlarScreen() {
   const {
@@ -38,13 +39,13 @@ export default function AyarlarScreen() {
           <Text style={styles.sectionTitle}>Tur Parametreleri</Text>
 
           <View style={styles.row2}>
-            <Pressable style={styles.half} onPress={() => setShowTime(true)}>
+            <Pressable style={styles.half} {...pressHandlers(() => setShowTime(true))}>
               <Text style={styles.fieldLabel}>Başlangıç saati</Text>
               <View style={styles.pickerTrigger}>
                 <Text style={styles.pickerVal}>{tur.baslangicSaati}</Text>
               </View>
             </Pressable>
-            <Pressable style={styles.half} onPress={() => setShowMins(true)}>
+            <Pressable style={styles.half} {...pressHandlers(() => setShowMins(true))}>
               <Text style={styles.fieldLabel}>Mağaza Ziyaret Süresi (dk)</Text>
               <View style={styles.pickerTrigger}>
                 <Text style={styles.pickerVal}>{tur.magazaBasiDakika} dk</Text>
@@ -53,13 +54,13 @@ export default function AyarlarScreen() {
           </View>
 
           <View style={styles.row2}>
-            <Pressable style={styles.half} onPress={() => setShowTarget(true)}>
+            <Pressable style={styles.half} {...pressHandlers(() => setShowTarget(true))}>
               <Text style={styles.fieldLabel}>Hedef mağaza</Text>
               <View style={styles.pickerTrigger}>
                 <Text style={styles.pickerVal}>{tur.hedefMagaza} mağaza</Text>
               </View>
             </Pressable>
-            <Pressable style={styles.half} onPress={() => setShowMaxTime(true)}>
+            <Pressable style={styles.half} {...pressHandlers(() => setShowMaxTime(true))}>
               <Text style={styles.fieldLabel}>Maksimum Süre (Saat)</Text>
               <View style={styles.pickerTrigger}>
                 <Text style={styles.pickerVal}>{tur.maksSaat} saat</Text>

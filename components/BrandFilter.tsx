@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { BrandColors } from '../constants/theme';
 import { useFilterStore } from '../store/filterStore';
+import { pressHandlers } from '../utils/webPress';
 
 export function BrandFilter() {
   const { activeBrands, brandToggle } = useFilterStore();
@@ -14,7 +15,7 @@ export function BrandFilter() {
           return (
             <Pressable
               key={key}
-              onPress={() => brandToggle(key)}
+              {...pressHandlers(() => brandToggle(key))}
               style={[styles.chip, on ? { backgroundColor: brand.color, borderColor: brand.color } : styles.chipOff]}
             >
               <View style={[styles.dot, { backgroundColor: on ? 'rgba(255,255,255,0.8)' : brand.color }]} />

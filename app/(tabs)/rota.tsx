@@ -9,6 +9,7 @@ import { useRotaStore } from '../../store/rotaStore';
 import { BrandIcon } from '../../components/BrandIcon';
 import { Header } from '../../components/Header';
 import { haversine } from '../../utils/haversine';
+import { pressHandlers } from '../../utils/webPress';
 
 function fmtTime(totalMins: number): string {
   const h = Math.floor(totalMins / 60);
@@ -209,7 +210,7 @@ export default function RotaScreen() {
         {/* Rota oluştur butonu */}
         {!optimizeEdildi && secili.length >= 2 && (
           <View style={styles.section}>
-            <Pressable style={styles.btnOptimize} onPress={rotayiOlustur}>
+            <Pressable style={styles.btnOptimize} {...pressHandlers(rotayiOlustur)}>
               <Text style={styles.btnOptimizeText}>✦ Rotayı Optimize Et</Text>
               <Text style={styles.btnOptimizeSub}>En kısa yol · 2-opt algoritması</Text>
             </Pressable>
@@ -301,23 +302,23 @@ export default function RotaScreen() {
 
         {/* Butonlar */}
         <View style={styles.buttons}>
-          <Pressable style={styles.btnMaps} onPress={haritadaGoster}>
+          <Pressable style={styles.btnMaps} {...pressHandlers(haritadaGoster)}>
             <Text style={styles.btnMapsText}>🗺 Haritada Göster</Text>
           </Pressable>
           <View style={styles.btnRow}>
-            <Pressable style={styles.btnSecondary} onPress={rotayiSifirla}>
+            <Pressable style={styles.btnSecondary} {...pressHandlers(rotayiSifirla)}>
               <Text style={styles.btnSecondaryText}>Rotayı Sıfırla</Text>
             </Pressable>
             <Pressable
               style={[styles.btnSecondary, { borderColor: '#FFAAAA' }]}
-              onPress={() => Alert.alert(
+              {...pressHandlers(() => Alert.alert(
                 'Seçimi Temizle',
                 'Tüm seçili mağazalar ve noktalar silinecek.',
                 [
                   { text: 'İptal', style: 'cancel' },
                   { text: 'Temizle', style: 'destructive', onPress: secimTemizle },
                 ]
-              )}
+              ))}
             >
               <Text style={[styles.btnSecondaryText, { color: '#C00' }]}>Seçimi Temizle</Text>
             </Pressable>
