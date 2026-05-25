@@ -8,8 +8,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "predeploy": "npx expo export -p web --base-url .",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npx expo export -p web && node fix-paths.js",
+    "deploy": "gh-pages -d dist",
+    "preview": "npx expo export -p web && node fix-paths.js && npx serve dist"
   },
   "dependencies": {
     "@shopify/flash-list": "2.0.2",
