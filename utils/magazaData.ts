@@ -1,4 +1,4 @@
-// Migros mağaza verisi - Magaza_Listesi.csv'den oluşturuldu
+// Migros mağaza verisi - Magaza_Listesi.xlsx dosyasından oluşturuldu
 // Format: [id, lat, lng, adres, isim, telefon, brandCode, ilce, format, acilisTarihi, satisM2, genelM2]
 
 export type StoreRow = [
@@ -133,16 +133,6 @@ export const DB: Record<string, StoreRow[]> = {
     ["8930",39.021224,31.152243,"YENİ MAHALLE ESKİŞEHİR CADDESİ NO:48/1","8930 - EMİRDAĞ AFYON M MİGROS","","migros","EMİRDAĞ","SELF SERVİS M","15.10.2024",377,921],
     ["8995",38.7700282,30.53805,"Selçuklu Mah. Adnan Kahveci Cad. No:19/A/Z","8995 - UYDUKENT AFYON M MİGROS","","migros","MERKEZ","SELF SERVİS M","19.11.2024",496,1259],
     ["9409",39.031733,31.160179,"Aziziye Mahallesi Eskişehir Caddesi No:151/A-B","9409 - MJET AZİZİYE MH EMİRDAĞ AFYON","","mjet","EMİRDAĞ","M-JET","20.06.2025",315,489]
-  ],
-  "AĞRI": [
-    ["3147",39.548734,44.079704,"Ahmedihani Mah. Ağrı Cad. No:228","3147 - DOĞUBAYAZIT AĞRI MM MIGROS","","migros","DOĞUBAYAZIT","MM","29.11.2010",1100,1600],
-    ["3601",39.718801,43.049861,"Sıtkiye Mah. Yaşar Kemal Cad. No:43","3601 - AĞRI MM MİGROS","","migros","MERKEZ","MM","27.12.2011",1016,1581],
-    ["6463",39.71445,43.026553,"Fırat Mah.Çevreyolu Cad. No:414","6463 - MJET AĞRI PO","","mjet","MERKEZ","MJET-İSTASYON","31.03.2020",78,93],
-    ["7838",39.233339,42.855406,"Atatürk Mah. Yavuz Sultan Selim Cd. No:83","7838 - PATNOS AĞRI M MİGROS","","migros","PATNOS","M ANADOLU","7.04.2023",495,898],
-    ["8105",39.719005,43.020602,"Fırat Mah. Yaşar Kemal Cad. 1017 Sok. Aslan Apt.","8105 - BATIKENT AĞRI MM MİGROS","","migros","MERKEZ","MM","31.08.2023",652,929],
-    ["8171",39.714682,43.026404,"Fırat Mah Çevre Yolu Cad No:414/B","8171 - EĞİTİM CADDESİ AĞRI MM","","migros","MERKEZ","MM","27.10.2023",565,900],
-    ["9655",39.796771,42.677386,"Müftüselim Mahallesi Yunus Emre Caddesi Dış Kapı","9655 - MJET ELEŞKİRT AĞRI","","mjet","ELEŞKİRT","M-JET","12.09.2025",235,563],
-    ["9882",39.55336,44.082454,"Ahmedi Hani Mahallesi Abdulbari gözel caddesi Dış","9882 - ŞEHİTLER MH DOĞUBAYAZIT AĞRI M","","migros","DOĞUBAYAZIT","SERVİS REYONLU M","17.03.2026",594,801]
   ],
   "AKSARAY": [
     ["2477",38.367506,34.028612,"Ereğli Mah. 7/Atatürk Bul. No:100/A-A","2477 - AKSARAY MM MIGROS","","migros","MERKEZ","MM","27.08.2009",1298,2378],
@@ -865,6 +855,16 @@ export const DB: Record<string, StoreRow[]> = {
     ["9389",37.849908,27.268694,"İkiçeşmelik Mah. Şükrü Kücük Caddesi No:13/D-13/E","9389 - MJET ŞÜKRÜ KÜÇÜK CD AYDIN","","mjet","KUŞADASI","M-JET","27.08.2025",282,345],
     ["9693",37.824656,27.262023,"DEĞİRMENDERE MAHALLESİ YAVANSU YOLU SOKAK NO:1","9693 - YAVANSU CD KUŞADASI AYDIN M","","migros","KUŞADASI","SELF SERVİS M","9.02.2026",389,536]
   ],
+  "AĞRI": [
+    ["3147",39.548734,44.079704,"Ahmedihani Mah. Ağrı Cad. No:228","3147 - DOĞUBAYAZIT AĞRI MM MIGROS","","migros","DOĞUBAYAZIT","MM","29.11.2010",1100,1600],
+    ["3601",39.718801,43.049861,"Sıtkiye Mah. Yaşar Kemal Cad. No:43","3601 - AĞRI MM MİGROS","","migros","MERKEZ","MM","27.12.2011",1016,1581],
+    ["6463",39.71445,43.026553,"Fırat Mah.Çevreyolu Cad. No:414","6463 - MJET AĞRI PO","","mjet","MERKEZ","MJET-İSTASYON","31.03.2020",78,93],
+    ["7838",39.233339,42.855406,"Atatürk Mah. Yavuz Sultan Selim Cd. No:83","7838 - PATNOS AĞRI M MİGROS","","migros","PATNOS","M ANADOLU","7.04.2023",495,898],
+    ["8105",39.719005,43.020602,"Fırat Mah. Yaşar Kemal Cad. 1017 Sok. Aslan Apt.","8105 - BATIKENT AĞRI MM MİGROS","","migros","MERKEZ","MM","31.08.2023",652,929],
+    ["8171",39.714682,43.026404,"Fırat Mah Çevre Yolu Cad No:414/B","8171 - EĞİTİM CADDESİ AĞRI MM","","migros","MERKEZ","MM","27.10.2023",565,900],
+    ["9655",39.796771,42.677386,"Müftüselim Mahallesi Yunus Emre Caddesi Dış Kapı","9655 - MJET ELEŞKİRT AĞRI","","mjet","ELEŞKİRT","M-JET","12.09.2025",235,563],
+    ["9882",39.55336,44.082454,"Ahmedi Hani Mahallesi Abdulbari gözel caddesi Dış","9882 - ŞEHİTLER MH DOĞUBAYAZIT AĞRI M","","migros","DOĞUBAYAZIT","SERVİS REYONLU M","17.03.2026",594,801]
+  ],
   "BALIKESİR": [
     ["1089",39.42709,26.80837,"KARAAĞAÇ MH. 4118. CD. NO:32A","1089 - ARTUR SATIŞ MAĞAZASI","","migros","GÖMEÇ","SERVİS REYONLU M","20.06.2003",310,455],
     ["1158",39.568787,26.741205,"Altınoluk Mah. Tekçam Cad. No:14","1158 - TEKÇAM CADDESİ ALTINOLUK MM","","migros","EDREMİT","MM","17.06.2005",1307,2175],
@@ -1197,65 +1197,6 @@ export const DB: Record<string, StoreRow[]> = {
     ["9235",40.2046358,29.0257258,"KÜKÜRTLÜ MAH. KARAGÖZ CAD. NO:7 A-B-C","9235 - MJET KARAGÖZ CD BURSA","","mjet","OSMANGAZİ","M-JET","30.09.2025",150,225],
     ["8761",40.275265,29.086014,"Demirtaş Sakarya Mah. Hastane Cad.","8761 - SAKARYA MH DEMİRTAŞ BURSA MM","","migros","OSMANGAZİ","MM","30.09.2025",651,799],
     ["9038",40.19132902,29.06653413,"SAKARYA MAH. CELAL BAYAR CAD.","9038 - MJET CELAL BAYAR CADDESİ BURSA","","mjet","OSMANGAZİ","M-JET","30.01.2026",227,546]
-  ],
-  "ÇANAKKALE": [
-    ["4419",40.1240105,26.41101242,"Barbaros Mah. Atatürk Cad. No:207/22","4419 - ÇANAKKALE 17 BURDA MMM MİGROS","","migros","MERKEZ","MMM","9.04.2015",1943,2313],
-    ["4444",39.54765034,26.60491363,"Sahil Mah.Atatürk Cad. No:31/A","4444 - MJET KÜÇÜKKUYU ÇANAKKALE","","mjet","AYVACIK","M-JET","17.04.2015",131,227],
-    ["4542",39.548381,26.607787,"Mıhlı Mahallesi Akgün Albayrak Caddesi No:38","4542 - KÜÇÜKKUYU MM MİGROS","","migros","AYVACIK","MM","15.05.2015",668,1618],
-    ["4617",40.12774,26.41072,"Barbaros Mah. Troya Cad. No:2/1","4617 - TROYPARK MM MİGROS","","migros","MERKEZ","MM","26.06.2015",1016,1765],
-    ["4618",40.10143,26.39825,"Boğazkent Mah. Atatürk Cad. No:126/22","4618 - KEPEZ ÇANAKKALE M MİGROS","","migros","MERKEZ","SELF SERVİS M","23.06.2015",326,455],
-    ["4640",40.19832459,25.9028418,"Fatih Mah. Piri Reis Sok. No:3","4640 - MJET GÖKÇEADA","","mjet","GÖKÇEADA","M-JET","30.06.2015",227,461],
-    ["5033",40.0489838,26.3508415,"Güzelyalı Mah. İzmir Cad. No:67","5033 - MJET GÜZELYALI ÇANAKKALE","","mjet","MERKEZ","M-JET","10.06.2016",161,360],
-    ["5270",40.4189985,26.6743951,"Yazıcızade Mah. Mevlevihane Cad. B/Blok No:18","5270 - MJET GELİBOLU ÇANAKKALE","","mjet","GELİBOLU","M-JET","2.06.2017",283,515],
-    ["5519",40.1135,26.4091,"Barbaros Mah. Atatürk Cad. Kepez İstikameti No:245","5519 - 5M ÇANAKKALE KİPA AVM","","5m","MERKEZ","5M","1.09.2018",3870,6257],
-    ["5640",40.420453,26.668914,"Gazi Süleyman Paşa Mah. 26 Kasım Cad. No:53/A","5640 - GELİBOLU ANZAK MM MİGROS","","migros","GELİBOLU","MM","1.09.2018",816,1165],
-    ["5655",40.223832,27.247558,"Sakarya Mah.Turgut Özal Cad. No:3/1","5655 - BİGA ÇANAKKALE M MİGROS","","migros","BİGA","SELF SERVİS M","1.09.2018",710,1075],
-    ["5770",40.4052465,26.6727885,"Yazıcızade Mh. Tuğsavul Cd. No:1-3","5770 - GELİBOLU TUĞSAVUL M MİGROS","","migros","GELİBOLU","SERVİS REYONLU M","18.12.2018",357,499],
-    ["5855",40.03953357,26.34194869,"Güzelyalı Mah. Tusan Cad. No:19/1","5855 - MJET ESKİ İZMİR CAD.ÇANAKKALE","","mjet","MERKEZ","M-JET","13.06.2018",183,265],
-    ["5910",40.08531414,26.36679442,"Çınarlı Mah. Dardanos Mevkii Dardanos 1.Sok No:2/1","5910 - MJET ÇANAKKALE DARDANOS","","mjet","MERKEZ","M-JET","31.05.2019",156,251],
-    ["5943",39.80591353,26.20271141,"Geyikli Beldesi Cumhuriyet Mah.Çanakkale Cad.","5943 - MJET GEYİKLİ EZİNE","","mjet","EZİNE","M-JET","6.07.2018",337,480],
-    ["6370",40.15278978,26.41004085,"Cevatpaşa Mah. İnönü Cad. No:43 A Blok","6370 - İNÖNÜ CADDESİ ÇANAKKALE M","","migros","MERKEZ","SERVİS REYONLU M","22.11.2019",482,632],
-    ["6424",40.094615,26.409178,"Kepez Belediyesi Hamidiye Mah. Fatih Cad. No.33A","6424 - HAMİDİYE ÇANAKKALE M MİGROS","","migros","MERKEZ","SELF SERVİS M","12.06.2020",606,873],
-    ["6425",40.16376256,26.42792956,"Esenler Mah. Ahmet Piriştina Cad No,:31","6425 - AHMET PİRİŞTİNA ÇANAKKALE M","","migros","MERKEZ","SELF SERVİS M","20.03.2020",485,914],
-    ["6426",40.100204,26.409476,"Hamidiye Mah. Rauf Denktaş Cad. No:14C/25 CBlok","6426 - RAUF DENKTAŞ ÇANAKKALE M","","migros","MERKEZ","SELF SERVİS M","22.05.2020",450,974],
-    ["6638",40.149418,26.447072,"İsmetpaşa Mah. İzmir Cad. No:35","6638 - MJET İSMETPAŞA ÇANAKKALE","","mjet","MERKEZ","M-JET","22.01.2021",250,382],
-    ["6923",40.339311,26.678099,"Gazi Süleyman Paşa Mah. Çanakkale Cad. No:53","6923 - LAPSEKİ ÇANAKKALE M MİGROS","","migros","LAPSEKİ","SELF SERVİS M","22.10.2021",368,576],
-    ["7094",39.82006355,26.16482047,"Geyikli Beldesi Cumhuriyet Mah. Ege Sokak No: 31/1","7094 - GEYİKLİ İSKELE M MİGROS","","migros","EZİNE","SELF SERVİS M","29.04.2022",313,420],
-    ["7102",40.233505,27.236638,"Hamdibey Mah.Sümbül Sok.No:1-3 İç Kapı No:1-2","7102 - HAMDİBEY BİGA ÇANAKKALE M","","migros","BİGA","SELF SERVİS M","1.04.2022",311,1003],
-    ["7161",40.199428,25.917351,"Yeni Mah.Kızılay Cad.","7161 - MJET GÖKÇEADA ÇANAKKALE PO","","mjet","GÖKÇEADA","MJET-İSTASYON","29.04.2022",65,77],
-    ["7884",40.1928,25.9018,"Fatih Mah. Atatürk Cad. No:1","7884 - GÖKÇEADA ÇARŞI MM MİGROS","","migros","GÖKÇEADA","MM","1.06.2023",835,1348],
-    ["7942",40.098696,26.399812,"Kepez Beldesi Cumhuriyet Mah.Vali Mustafa Bey Cd.","7942 - MJET CUMHURİYET MH. ÇANAKKALE","","mjet","MERKEZ","M-JET","21.07.2023",270,444],
-    ["7966",40.430238,26.684615,"Hoca Hamza Mah. Şehit İsmail Türe Cd. No: 54A","7966 - MJET EĞRİTAŞ GELİBOLU ÇAN.","","mjet","GELİBOLU","M-JET","23.06.2023",255,351],
-    ["8102",40.236525,27.263589,"Şirintepe Mah. Kıbrıs Şehitleri Cad. No:35-12/14","8102 - ŞİRİNTEPE BİGA ÇANAKKALE M","","migros","BİGA","SELF SERVİS M","31.10.2023",607,818],
-    ["8153",40.226828,27.248448,"Sakarya mah.Turgut Özal cd. No:1-3 İç kapı no:19 B","8153 - MION PAKT PLUS AVM BİGA Ç.KALE","","mion","BİGA","MION","27.10.2023",120,133],
-    ["8707",40.169441,26.36495,"İsmetpaşa Mah. Piri Reis Cad. No:1/AD","8707 - ECEABAT ÇANAKKALE M MİGROS","","migros","ECEABAT","SELF SERVİS M","9.08.2024",396,611],
-    ["8721",40.419839,26.677407,"Yazıcızade Mah. Dumlupınar Sok No:14/1","8721 - YAZICIZADE GELİBOLU Ç.KALE M","","migros","GELİBOLU","SERVİS REYONLU M","16.08.2024",426,732],
-    ["8887",40.413389,26.668008,"Gazisüleymanpaşa Mah. Saruca Paşa Cad.No:2-10A","8887 - MJET G. SÜLEYMANPAŞA GELİBOLU","","mjet","GELİBOLU","M-JET","28.03.2025",276,333],
-    ["9284",39.78792,26.33874,"Seferşah Mahallesi, Adnan Menderes Caddesi","9284 - MJET EZİNE ÇANAKKALE","","mjet","EZİNE","M-JET","28.03.2025",231,393],
-    ["9444",40.094615,26.409178,"Kepez Belediyesi Hamidiye Mah. Fatih Cad.","9444 - HAMİDİYE ÇANAKKALE M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","22.04.2025",606,873],
-    ["9369",40.026627,27.047861,"Cumhuriyet Mah.Mesut Hulki Önür Cad. No:33","9369 - ÇAN ÇANAKKALE M MİGROS","","migros","ÇAN","SELF SERVİS M","30.05.2025",450,1105],
-    ["9705",40.237335,27.2376205,"HAMDİBEY MAHALLESİ BANDIRMA CADDESİ NO:19 İÇ KAPI","9705 - BANDIRMA CD BİGA ÇANAKKALE MM","","migros","BİGA","MM","18.03.2026",849,2081]
-  ],
-  "ÇANKIRI": [
-    ["3044",40.599438,33.625782,"Buğday Pazarı Mah. Atatürk Bul. No:51/A","3044 - ÇANKIRI MM MIGROS","","migros","MERKEZ","MM","24.09.2010",1116,1779],
-    ["7449",40.812681,32.888184,"Karamuklu Mah. Hükümet Cd.","7449 - ÇERKEŞ ÇANKIRI M MİGROS","","migros","ÇERKEŞ","M ANADOLU","14.12.2022",427,524],
-    ["7901",40.921021,33.623203,"Gazi Dede Mah Şehit Cemil Çelik Cad No: 24A","7901 - ILGAZ ÇANKIRI M MİGROS","","migros","ILGAZ","M ANADOLU","24.05.2023",425,525],
-    ["7994",40.481562,33.281762,"Sağlık Mah. Asya Sokak No: 7/17","7994 - ŞABANÖZÜ ÇANKIRI M MİGROS","","migros","ŞABANÖZÜ","M ANADOLU","14.07.2023",359,678],
-    ["8091",40.59184,33.627765,"Buğday Pazarı Mah Beşkavaklar Cad No: 31/13","8091 - MJET BEŞKAVAKLAR CD ÇANKIRI","","mjet","MERKEZ","M-JET","31.08.2023",239,309]
-  ],
-  "ÇORUM": [
-    ["3336",40.546034,34.968297,"Bahçelievler Mah. Bahabey Cad. No:59/A","3336 - ÇORUM MM MİGROS","","migros","MERKEZ","MM","31.03.2011",1171,1720],
-    ["4320",40.5378,34.9531,"Gülabibey Mah. Cemilbey Cad. No:83/C","4320 - ÇORUM SİGORTA M MİGROS","","migros","MERKEZ","SELF SERVİS M","2.10.2014",507,694],
-    ["4321",40.569485,34.963806,"Üçtutlar Mah. Dr. İlhan Gürel Cad. No: 16/21","4321 - BİNEVLER ÇORUM M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","21.09.2015",372,1122],
-    ["5174",40.544254,34.947617,"Çephi Mah. Kerebi Gazi 1.Sok No:7/4","5174 - AHL PARK AVM ÇORUM MMM MİGROS","","migros","MERKEZ","MMM","19.11.2016",1619,2670],
-    ["6144",40.550355,34.968184,"Bahçelievler Mah. Şenyurt Cad. No:8/A","6144 - MJET ÇORUM BAHÇELİEVLER","","mjet","MERKEZ","M-JET","1.10.2018",238,335],
-    ["6244",40.549446,34.965362,"Bahçelievler Mah. Bahabey Cad. No:27/F","6244 - MJET BAHABEY ÇORUM","","mjet","MERKEZ","M-JET","16.04.2019",330,418],
-    ["7478",40.977029,34.803145,"Yeni Mah. Şehit Ahmet Balcı Sk.Kanuni Apt. A blok","7478 - OSMANCIK ÇORUM M MİGROS","","migros","OSMANCIK","M ANADOLU","25.11.2022",424,504],
-    ["8217",40.558918,34.959939,"Üçtutlar Mah. Eşref Hoca Cad. No: 16A","8217 - EŞREF HOCA CD ÇORUM M","","migros","MERKEZ","SELF SERVİS M","10.11.2023",370,600],
-    ["8399",40.571777,34.992221,"Üçtutlar Mahallesi Samsun Yolu Bulvarı No: 13B","8399 - MJET SEYYAH PARK ÇORUM","","mjet","MERKEZ","M-JET","25.01.2024",209,439],
-    ["8779",40.1693969,34.8430156,"Yıldızhan Mah. Koca Yusuf Sok. No: 2/13","8779 - ALACA ÇORUM M MİGROS","","migros","ALACA","M ANADOLU","6.08.2024",246,421],
-    ["8818",40.53451385,34.96612298,"Kale Mah. Ata Cad. No:126/A-B","8818 - MJET ATA CADDESİ MERKEZ ÇORUM","","mjet","MERKEZ","M-JET","9.08.2024",269,546],
-    ["9622",40.5378,34.9531,"GÜLABİBEY MAH. CEMİLBEY CAD.","9622 - MJET SİGORTA ÇORUM","","mjet","MERKEZ","M-JET","22.07.2025",325,507]
   ],
   "DENİZLİ": [
     ["3295",37.763183,29.107579,"Cumhuriyet Mahallesi 3510 Sokak No:1","3295 - DENİZLİ MM MİGROS","","migros","PAMUKKALE","MM","22.02.2011",1229,2427],
@@ -1662,19 +1603,12 @@ export const DB: Record<string, StoreRow[]> = {
     ["9253",36.7894031,36.2386998,"Çağlalik Mahallesi Çağlalik Sokak No:179/1a","9253 - MJET ÇAĞLALIK MH PAYAS HATAY","","mjet","PAYAS","M-JET","27.03.2025",178,329],
     ["9434",36.2649874,36.184619,"Güzelburç Mahallesi E5 Karayolu Cd. No:178/E-F","9434 - ABDURRAHMAN CİVAN HATAY M","","migros","ANTAKYA","SERVİS REYONLU M","30.05.2025",413,1088],
     ["9552",36.208483,36.1247757,"ÇEKMECE MAHALLESİ ÇEKMECE CADDESİ ZEYNEP APT.","9552 - ÇEKMECE CD DEFNE HATAY M","","migros","DEFNE","SELF SERVİS M","11.07.2025",404,834],
-    ["7722",36.409136,35.890571,"Uluçınar Mah Yıldızlar Cad. B-C Blok No:31/1-A","7722 - ARSUZ ULUÇINAR HATAY M","","","ARSUZ","SELF SERVİS M","1.01.2027",493,996],
+    ["7722",36.409136,35.890571,"Uluçınar Mah Yıldızlar Cad. B-C Blok No:31/1-A","7722 - ARSUZ ULUÇINAR HATAY M","","migros","ARSUZ","SELF SERVİS M","1.01.2027",493,996],
     ["4462",0,0,"","4462 - İSKENDERUN ÇARŞI MJET","","migros","İSKENDERUN","M-JET","",0,0],
     ["9743",36.8374817,36.2265398,"SANAYİ MAHALLESİ GARAJ ÜSTÜ 1. SOKAK KAPI NO:4K","9743 - ÇARŞI DÖRTYOL HATAY M MİGROS","","migros","DÖRTYOL","SELF SERVİS M","30.01.2026",438,543],
     ["9911",36.1408331,36.1419769,"HARBİYE MAHALLESİ ATATÜRK BULVARI NO:273","9911 - HARBİYE DEFNE HATAY M MİGROS","","migros","DEFNE","SELF SERVİS M","13.02.2026",450,581],
     ["9910",36.5660496,36.1454934,"KARAAĞAÇ KONARLI MAHALLESİ ATATÜRK (KONARLI)","9910 - MJET KARAAĞAÇ KONARLI HATAY","","mjet","ARSUZ","M-JET","20.02.2026",201,410],
     ["9909",36.34975786,36.20272287,"SERİNYOL MAH. HATAY 2 CAD.NO:143","9909 - MJET SERİNYOL AKINCILAR HATAY","","mjet","ANTAKYA","M-JET","27.02.2026",222,307]
-  ],
-  "IĞDIR": [
-    ["1905",39.922606,44.043723,"Bağlar Mah. 40 Evler Sok. No:1","1905 - IĞDIR MM MİGROS","","migros","MERKEZ","MM","13.07.2007",1055,2060],
-    ["4136",39.92687684,44.03491102,"Topçular Mah. Vali Konağı Cad. No:59/A","4136 - VALİYOLU IĞDIR M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","19.12.2013",616,1071],
-    ["5312",39.921292,44.041914,"Topçular Mah.Vali Konağı Yolu Cad. No:13/1","5312 - TOPÇULAR IĞDIR M MİGROS","","migros","MERKEZ","M ANADOLU","6.10.2017",500,837],
-    ["5966",39.929367,44.046256,"Bağlar Mah. Atatürk Cad. No:49/A","5966 - MJET IĞDIR BAHARLI","","mjet","MERKEZ","M-JET","14.09.2018",269,507],
-    ["8029",40.042647,43.662337,"Yukarı Mah. Iğdır Cad. No:12","8029 - TUZLUCA IĞDIR M","","migros","TUZLUCA","M ANADOLU","24.07.2023",469,917]
   ],
   "ISPARTA": [
     ["3255",37.751777,30.578357,"Halıkent Mah. 124 Cad. No:90","3255 - HALIKENT ISPARTA MM MİGROS","","migros","MERKEZ","MM","28.01.2011",840,1358],
@@ -1708,6 +1642,13 @@ export const DB: Record<string, StoreRow[]> = {
     ["9673",37.81885,30.542715,"ÇÜNÜR MAH.5471 SK.NO:1A/1","9673 - ÇÜNÜR MH MERKEZ ISPARTA M","","migros","MERKEZ","SELF SERVİS M","14.08.2025",460,571],
     ["9607",37.90989455,30.3121437,"KÜKÜRT MH. 110 SK. NO:4","9607 - MJET AYPA KEÇİBORLU ISPARTA PO","","mjet","KEÇİBORLU","MJET-İSTASYON","6.08.2025",80,128],
     ["9863",37.7650932,30.5374742,"Gülistan Mah.111 Cad E1 Blok No:226/24","9863 - GÜLİSTAN ISPARTA M","","migros","MERKEZ","SELF SERVİS M","15.01.2026",468,950]
+  ],
+  "IĞDIR": [
+    ["1905",39.922606,44.043723,"Bağlar Mah. 40 Evler Sok. No:1","1905 - IĞDIR MM MİGROS","","migros","MERKEZ","MM","13.07.2007",1055,2060],
+    ["4136",39.92687684,44.03491102,"Topçular Mah. Vali Konağı Cad. No:59/A","4136 - VALİYOLU IĞDIR M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","19.12.2013",616,1071],
+    ["5312",39.921292,44.041914,"Topçular Mah.Vali Konağı Yolu Cad. No:13/1","5312 - TOPÇULAR IĞDIR M MİGROS","","migros","MERKEZ","M ANADOLU","6.10.2017",500,837],
+    ["5966",39.929367,44.046256,"Bağlar Mah. Atatürk Cad. No:49/A","5966 - MJET IĞDIR BAHARLI","","mjet","MERKEZ","M-JET","14.09.2018",269,507],
+    ["8029",40.042647,43.662337,"Yukarı Mah. Iğdır Cad. No:12","8029 - TUZLUCA IĞDIR M","","migros","TUZLUCA","M ANADOLU","24.07.2023",469,917]
   ],
   "İSTANBUL": [
     ["1000",40.99583,28.86451,"KADİR HAS AVM B.Evler Mah Mehmetçik Sok.NO:1/B.","1000 - KADİR HAS CENTER MMM MİGROS","","migros","BAHÇELİEVLER","MMM","21.09.2001",1533,2638],
@@ -2482,7 +2423,7 @@ export const DB: Record<string, StoreRow[]> = {
     ["9756",41.068865,29.005703,"Esentepe, Büyükdere Cd. No:127","9756 - ASTORİA İSTANBUL M MİGROS","","migros","ŞİŞLİ","SELF SERVİS M","24.12.2025",510,1100],
     ["9348",41.02338,28.79146,"İNÖNÜ MH. HALKALI CAD. NO:210 /1B","9348 - BRAND ATAKENT MACROCENTER","","macro","KÜÇÜKÇEKMECE","MACROCENTER","30.09.2025",426,669],
     ["4667",0,0,"Adnan Kahveci Mah.Avrupa Cad. Dış Kapı No:108 İç Kapı No: 13 BEYLİKDÜZÜ/İSTANBUL","4667 - KÜBİST MM MİGROS","","migros","BEYLİKDÜZÜ","MM","15.07.2015",756,996],
-    ["5995",0,0,"Esenyurt / İSTANBUL","5995 - ESENYURT ÇEMBERLİTAŞ M MİGROS","","","ESENYURT","","",0,0],
+    ["5995",0,0,"Esenyurt / İSTANBUL","5995 - ESENYURT ÇEMBERLİTAŞ M MİGROS","","migros","ESENYURT","","",0,0],
     ["9088",41.037326,29.153081,"Çekmeköy 1A Gözde Sk","9088 - LENS ÇEKMEKÖY İSTANBUL MM","","migros","ÇEKMEKÖY","MM","9.10.2025",780,1009],
     ["9081",40.947622,29.10672,"Küçükyalı 112B Bağdat Cd","9081 - MJET MERKEZ MH KÜÇÜKYALI İST","","mjet","MALTEPE","M-JET","10.10.2025",140,198],
     ["9557",41.0831,29.01218,"Levent, İş Bankası Kuleleri Kule Çarşı 34330","9557 - MION İŞ KULELERİ LEVENT İST","","mion","BEŞİKTAŞ","MION","13.10.2025",77,96],
@@ -2674,7 +2615,7 @@ export const DB: Record<string, StoreRow[]> = {
     ["5030",38.1949734,26.8405632,"Hıdırlık Mah. Necat Hepkon Cad. No:12C-12E","5030 - SEFERİHİSAR ÇARŞI M MİGROS","","migros","SEFERİHİSAR","SERVİS REYONLU M","17.06.2016",478,595],
     ["5063",38.4908617,27.0635446,"Ataşehir Mah. Semra Aksu Cad.No:10-1A","5063 - MJET METRO ÇİĞLİ İZMİR","","mjet","ÇİĞLİ","M-JET","29.06.2016",237,314],
     ["5066",38.14887302,27.3492162,"Muratbey Mah. Doğan Bursalı Cad. No:35","5066 - MJET MURAT BEY TORBALI","","mjet","TORBALI","M-JET","12.08.2016",198,379],
-    ["5086",38.2752878,26.7382692," Kuşçular Mah. Kuşçular Cad.No:93","5086 - MJET KUŞÇULAR URLA İZMİR","","mjet","URLA","M-JET","14.06.2016",186,232],
+    ["5086",38.2752878,26.7382692,"Kuşçular Mah. Kuşçular Cad.No:93","5086 - MJET KUŞÇULAR URLA İZMİR","","mjet","URLA","M-JET","14.06.2016",186,232],
     ["5096",38.67690073,27.01629118,"Yıldırım Mah. Çanakkale Asfaltı Cad. No:722","5096 - KASABA AVM MENEMEN M MİGROS","","migros","MENEMEN","SELF SERVİS M","1.07.2016",402,509],
     ["5119",38.2362218,27.98635804,"Zafer Mah. Şehit Adnan Menderes Bulvarı No:94-96/A","5119 - MJET ZAFER MAH ÖDEMİŞ İZMİR","","mjet","ÖDEMİŞ","M-JET","19.08.2016",212,472],
     ["5143",38.35645768,26.87084075,"Kahramandere Mah. 767 Sokak.NO:13/B","5143 - KAHRAMANDERE GÜZELBAHÇE iZMİRM","","migros","GÜZELBAHÇE","SERVİS REYONLU M","6.07.2017",636,960],
@@ -2825,7 +2766,7 @@ export const DB: Record<string, StoreRow[]> = {
     ["7706",38.55132187,27.04126315,"30 Ağustos Mah.7202 Sok.No:11C-11D-11E-11F-11G-11H","7706 - 30 AĞUSTOS ULUKENT İZMİR M","","migros","MENEMEN","SELF SERVİS M","16.06.2023",550,782],
     ["7718",38.788206,26.983756,"Yeni Mah. Samurlu Cad. No:47A-47B-47C","7718 - SAMURLU ALİAĞA İZMİR M","","migros","ALİAĞA","M ANADOLU","24.02.2023",450,593],
     ["7750",38.364444,26.766313,"İskele Mah. Neyzen Tevfik Cad. No:537","7750 - FEVZİ ÇAKMAK URLA İZMİR M","","migros","URLA","SELF SERVİS M","24.02.2023",380,530],
-    ["7751",38.19655,26.83962,"Camikebir Mah. 52/1 Sokak No:17\t","7751 - SEFERİHİSAR TURABİYE M MİGROS","","migros","SEFERİHİSAR","SELF SERVİS M","3.03.2023",383,589],
+    ["7751",38.19655,26.83962,"Camikebir Mah. 52/1 Sokak No:17","7751 - SEFERİHİSAR TURABİYE M MİGROS","","migros","SEFERİHİSAR","SELF SERVİS M","3.03.2023",383,589],
     ["7759",38.3864,27.1598,"Efeler Mah. 306/6 Sokak No:12/A","7759 - EFELER MH. BUCA İZMİR M","","migros","BUCA","SELF SERVİS M","2.03.2023",370,475],
     ["7790",38.35608045,26.31179387,"Dalyan Mah. 4218 Sok. No: 45A","7790 - DALYAN ÇEŞME İZMİR MM MİGROS","","migros","ÇEŞME","MM","23.02.2024",727,1331],
     ["7813",38.437365,27.209213,"Karacaoğlan Mah. 6244 Sok. No:107A-107B","7813 - KARACAOĞLAN İZMİR MM MİGROS","","migros","BORNOVA","MM","31.05.2023",655,842],
@@ -2971,7 +2912,7 @@ export const DB: Record<string, StoreRow[]> = {
     ["8334",40.333274,42.586934,"Cumhuriyet Mah. Cumhuriyet Cad. No:17","8334 - SARIKAMIŞ KARS M MİGROS","","migros","SARIKAMIŞ","M ANADOLU","23.02.2024",554,812],
     ["8838",40.579411,43.090208,"Yenişehir Mah. 93.Sok. No:2/1","8838 - KARACAÖREN MH KARS M MİGROS","","migros","MERKEZ","M ANADOLU","29.08.2024",391,490],
     ["9196",40.467368,42.787888,"Çarşı Mahallesi Halitpaşa Caddesi Dış Kapı No :71","9196 - MJET SELİM KARS","","mjet","SELİM","M-JET","26.02.2025",208,418],
-    ["9339",40.586333,43.078422,"ŞEHİTLER MAH. AHMET ARSLAN CAD. NO: 45C ","9339 - ÜNİVERSİTE KARS M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","14.08.2025",367,689],
+    ["9339",40.586333,43.078422,"ŞEHİTLER MAH. AHMET ARSLAN CAD. NO: 45C","9339 - ÜNİVERSİTE KARS M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","14.08.2025",367,689],
     ["9611",40.607078,43.100126,"İSTASYON MAHALLESİ BAHRİ DAĞDAŞ CADDESİ NO : 37A","9611 - İSTASYON MH KARS M MİGROS","","migros","MERKEZ","SELF SERVİS M","23.01.2026",456,528]
   ],
   "KASTAMONU": [
@@ -3694,7 +3635,7 @@ export const DB: Record<string, StoreRow[]> = {
     ["9211",36.6213785,29.1072458,"Cumhuriyet Mah., Atatürk (Cmh) Cad.0 No: 4a","9211 - PASPATUR FETHİYE MACROCENTER S","","macro","FETHİYE","MACROCENTER S","19.06.2025",232,535],
     ["9257",36.8529891,28.2631467,"Çıldır Mh. Hasan Işık Cd. No:19-19a","9257 - ÇILDIR MH MARMARİS MUĞLA M","","migros","MARMARİS","SERVİS REYONLU M","20.06.2025",247,346],
     ["9299",37.1199477,27.3843652,"Gölköy Mah., Hürriyet (Gölköy) Cad. No:125  İç","9299 - GÖLKÖY BODRUM MUĞLA M MİGROS","","migros","BODRUM","SELF SERVİS M","30.06.2025",275,420],
-    ["9243",36.6527845,29.1785625," ÇAMKÖY MAHALLESİ ALPARSLAN TÜRKEŞ CADDESİ","9243 - ÇAMKÖY FETHİYE MUĞLA M MİGROS","","migros","FETHİYE","SELF SERVİS M","21.08.2025",340,695],
+    ["9243",36.6527845,29.1785625,"ÇAMKÖY MAHALLESİ ALPARSLAN TÜRKEŞ CADDESİ","9243 - ÇAMKÖY FETHİYE MUĞLA M MİGROS","","migros","FETHİYE","SELF SERVİS M","21.08.2025",340,695],
     ["9201",37.1967757,28.3688641,"Emirbeyazıt mh. 28. sok. dış kapı no:4A","9201 - MENTEŞE MUĞLA MACROCENTER","","macro","MENTEŞE","MACROCENTER","29.08.2025",563,1002],
     ["9613",37.06838,27.46329,"Torba Mh. Rıza Anter Cd., No: 24A - 26A","9613 - RIZA ANTER CD BODRUM MUĞLA M","","migros","BODRUM","SERVİS REYONLU M","12.09.2025",345,692],
     ["9747",36.6243562,29.1322216,"TAŞYAKA MH. ÖLÜDENİZ (TSY) CD. NO:12C","9747 - FETHİYE TERMİNAL MM MİGROS","","migros","FETHİYE","MM","18.11.2025",732,1126],
@@ -3927,42 +3868,6 @@ export const DB: Record<string, StoreRow[]> = {
     ["9291",39.730001,37.03842,"Kardeşler Mahallesi, Bağdat Caddesi","9291 - BAĞDAT CD SİVAS M MİGROS","","migros","MERKEZ","SELF SERVİS M","17.04.2025",346,436],
     ["9553",39.744315,36.9771387,"Tuzlugöl Mahallesi, 63-61. Sokak, No:5/a-5/b","9553 - TUZLUGÖL SİVAS M MİGROS","","migros","MERKEZ","SELF SERVİS M","22.01.2026",309,401]
   ],
-  "ŞANLIURFA": [
-    ["3019",37.182023,38.807155,"Esentepe Mah.Vatan Cad.Urfa City AVM  Apt.NO:2/7","3019 - URFA CİTY MM MIGROS","","migros","KARAKÖPRÜ","MM","1.09.2010",1527,2522],
-    ["4053",37.7529,39.319,"Camikebir Mah. Hürriyet Cad. NO:44/A","4053 - SİVEREK ŞANLIURFA M MİGROS","","migros","SİVEREK","SELF SERVİS M","4.07.2013",436,784],
-    ["4687",37.156944,38.779722,"Karakoyunlu Mahallesi 11 Nisan Fuar Cad. No:42/1","4687 - URFA PİAZZA MMM MİGROS","","migros","EYYÜBİYE","MMM","1.08.2015",1800,2605],
-    ["4890",37.221475,38.80512,"Şenevler Mahallesi Atatürk Bul. No:50/A-1","4890 - ŞENEVLER ŞANLIURFA M MİGROS","","migros","KARAKÖPRÜ","SERVİS REYONLU M","16.12.2015",347,684],
-    ["5051",37.164955,38.79567,"Bamyasuyu Mah. Çanakkale 18 Mart Cad.No:6/29","5051 - NOVADA ŞANLIURFA MM MİGROS","","migros","HALİLİYE","MM","17.03.2017",1021,1203],
-    ["5908",37.75178,39.329872,"Ofis Mah. Mustafa Remzi Bucak Bulv.NO:14/A-B","5908 - BAHÇELİEVLER SİVEREK M MİGROS","","migros","SİVEREK","SERVİS REYONLU M","24.05.2018",339,930],
-    ["6134",37.016419,37.973912,"Meydan Mah. Dr. Abdulkadir Erdil Cad No:35 A-B","6134 - BİRECİK ŞANLIURFA M MİGROS","","migros","BİRECİK","SELF SERVİS M","18.04.2019",490,1213],
-    ["6508",37.216808,38.796853,"Şenevler Mah. GAP Bulvarı NO:132 /A","6508 - GAP BULVARI ŞANLIURFA M","","migros","KARAKÖPRÜ","SERVİS REYONLU M","30.06.2020",635,1392],
-    ["6828",37.751388,39.333028,"Ofis Mah. Mustafa Remzi Bucak Bulv.NO:24-A","6828 - MJET Ş.URFA SİVEREK OFİS MAH","","mjet","SİVEREK","M-JET","29.06.2021",320,655],
-    ["6834",37.224767,39.753679,"Yenişehir Mah. 3 Cadde 12/A No:5","6834 - VİRANŞEHİR ŞANLIURFA M","","migros","VİRANŞEHİR","SERVİS REYONLU M","6.07.2021",497,790],
-    ["6835",37.169417,38.800969,"Selahattin Eyyubi Mah. 218 Sokak No:14","6835 - MJET ŞANLIURFA POLDEM","","mjet","HALİLİYE","M-JET","28.06.2021",376,887],
-    ["6978",37.194462,38.80608,"Akbayır Mah.Yeşiloğlu Bulvarı Karaköprü Avm","6978 - ŞANLIURFA KARAKÖPRÜ AVM MM","","migros","KARAKÖPRÜ","MM","16.12.2021",729,1108],
-    ["7431",36.86198,40.046211,"Ceylanpınar Mah. Dayan apartmanı altı","7431 - CEYLANPINAR ŞANLIURFA M MİGROS","","migros","CEYLANPINAR","M ANADOLU","25.11.2022",460,659],
-    ["7438",36.982803,38.426247,"Sarayaltı Mah. 11 Nisan Cad. no:90/A","7438 - SURUÇ ŞANLIURFA M MİGROS","","migros","SURUÇ","M ANADOLU","8.12.2022",322,678],
-    ["8263",37.223695,38.804614,"Atakent Mah. Atatürk Bulv. No:41/C","8263 - MION KARAKÖPRÜ Ş.URFA","","mion","KARAKÖPRÜ","MION","28.12.2023",112,205],
-    ["8304",37.742782,39.331355,"Yenişehir Mah. Bahri Karakeçili Cad.","8304 - MJET SARAYKENT SİVEREK Ş.URFA","","mjet","SİVEREK","M-JET","8.12.2023",200,256],
-    ["8326",37.585803,38.959672,"Yeni Mah. Diyarbakır Cad. No:137E","8326 - YENİ MAH.HİLVAN ŞANLIURFA M","","migros","HİLVAN","M ANADOLU","14.12.2023",338,926],
-    ["8972",37.190245,38.802511,"Karşıyaka Mah. Recep Tayip Erdoğan Bulvarı 25B","8972 - KARŞIYAKA MH ŞANLIURFA M","","migros","KARAKÖPRÜ","SELF SERVİS M","28.11.2024",553,1225],
-    ["9289",37.228497,37.947656,"Siyahgül Mah. Hastane Caddesi No:15a-15b","9289 - HALFETİ ŞANLIURFA M MİGROS","","migros","HALFETİ","M ANADOLU","18.06.2025",249,482],
-    ["9688",37.201491,38.817312,"DOĞUKENT MAH. FATİH SULTAN MEHMET BLV. NO:3A-3B","9688 - GÜZELŞEHİR KARAKÖPRÜ Ş.URFA M","","migros","KARAKÖPRÜ","SELF SERVİS M","15.10.2025",376,763],
-    ["9927",37.212098,38.797613,"ÇANKAYA MH. ŞANLIURFA-D.BAKIR YOLU NO:72A","9927 - MJET ÇANKAYA MH ŞANLIURFA PO","","mjet","KARAKÖPRÜ","MJET-İSTASYON","16.02.2026",126,137]
-  ],
-  "ŞIRNAK": [
-    ["5891",37.327213,42.186628,"Şah Mah. Cahferi Sadık Cad. No:1A/3","5891 - CİZRE ŞIRNAK MM MİGROS","","migros","CİZRE","MM","30.03.2018",878,1550],
-    ["6439",37.326471,42.21371,"Konak Mah. Silopi Bulvarı  No:189 DA","6439 - CİZRE PARK AVM M MİGROS","","migros","CİZRE","SERVİS REYONLU M","24.07.2020",632,783],
-    ["7158",37.516597,42.46398,"Yeşilyurt Mah.Uludere Cad.No:2","7158 - ŞIRNAK MM MİGROS","","migros","MERKEZ","MM","27.04.2022",820,1225],
-    ["7201",37.242758,42.476495,"172 Zırhı Turgay Karşısı İpekyolu Bulv No:8/C","7201 - SİLOPİ ŞIRNAK MM MİGROS","","migros","SİLOPİ","MM","27.05.2022",806,1143],
-    ["7435",37.514297,42.449692,"Bahçelievler Mah. 15 Temmuz Bulvarı No: 88 A","7435 - MJET BAHÇELİEVLER MAH. ŞIRNAK","","mjet","MERKEZ","M-JET","10.11.2022",240,323],
-    ["7593",37.518958,42.453092,"Atatürk Mah. Vilayet Bulvarı No:24D/E","7593 - MJET EMNİYET ŞIRNAK","","mjet","MERKEZ","M-JET","22.12.2022",248,470],
-    ["8244",37.3425125,41.8895374,"Yeni Mah. Ebuzeyd Çevrim Sok. Dış Kapı No:1","8244 - MJET İDİL ŞIRNAK","","mjet","İDİL","M-JET","10.11.2023",260,438],
-    ["8327",37.52198,42.458124,"Aydınlıkevler Mah. Cumhuriyet Bulv. No:25 Z4","8327 - MION CUMHURİYET BLV ŞIRNAK","","mion","MERKEZ","MION","27.12.2023",129,139],
-    ["8329",37.521581,42.4582452,"Aydınlıkevler Mah. Cumhuriyet Bulv. No:25-Z3","8329 - YENİ MAHALLE ŞIRNAK M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","27.12.2023",435,625],
-    ["8694",37.342144,41.882292,"Turgut Özal Mah. Adile Naşit Cad.","8694 - TURGUT ÖZAL BLV İDİL ŞIRNAK M","","migros","İDİL","SERVİS REYONLU M","13.06.2024",454,989],
-    ["9266",37.326264,42.214303,"Cumhuriyet Mh. Silopi Blv. No:117bj","9266 - MION CİZRE PARK ŞIRNAK","","mion","CİZRE","MION","2.06.2025",135,160]
-  ],
   "TEKİRDAĞ": [
     ["2150",40.988686,27.576714,"Değirmenaltı Mahallesi Değirmenaltı Caddesi No:2/A","2150 - YSK CENTER TEKİRDAĞ MMM MİGROS","","migros","SÜLEYMANPAŞA","MMM","16.09.2008",1740,3269],
     ["3724",40.868661,27.458611,"Kumbağ Mah.İnönü Cad.No:128","3724 - MJET TEKİRDAĞ KUMBAĞ","","mjet","SÜLEYMANPAŞA","M-JET","17.05.2012",202,380],
@@ -4031,7 +3936,7 @@ export const DB: Record<string, StoreRow[]> = {
     ["8898",41.44547246,27.9271088,"Yeni Mah. İstanbul Cad. No:62 64 B-C-D","8898 - YENİ MH SARAY TEKİRDAĞ M","","migros","SARAY","SELF SERVİS M","13.12.2024",354,578],
     ["9058",41.14190645,27.87357099,"ÖNERLER MAHALLESİ ULUBATLI HASAN CADDESİ","9058 - ÇORLU ÖNERLER MACROCENTER","","macro","ÇORLU","MACROCENTER","28.05.2025",586,850],
     ["9606",41.1574709,27.8781707,"ÖNERLER MAH. ÇAMLIBEL CAD.","9606 - ÖNERLER MH ÇORLU TEKİRDAĞ M","","migros","ÇORLU","SELF SERVİS M","2.07.2025",290,397],
-    ["9539",40.668949,27.246142,"Yenimahalle Kurtuluş Cd No: 110 Mürefte","9539 - MÜREFTE ŞARKÖY TEKİRDAĞ M","","","ŞARKÖY","SELF SERVİS M","23.05.2026",340,361],
+    ["9539",40.668949,27.246142,"Yenimahalle Kurtuluş Cd No: 110 Mürefte","9539 - MÜREFTE ŞARKÖY TEKİRDAĞ M","","migros","ŞARKÖY","SELF SERVİS M","23.05.2026",340,361],
     ["9498",41.1548156,27.8224593,"KAZİMİYE MAH.SALİH OMURTAK CAD NO58C","9498 - OMURTAK CD ÇORLU TEKİRDAĞ MM","","migros","ÇORLU","MM","21.08.2025",739,1139],
     ["6242",0,0,"Çorlu / TEKİRDAĞ","6242 - MJET ÇORLU KILIÇOĞLU AVM","","mjet","ÇORLU","M-JET","",0,0]
   ],
@@ -4230,17 +4135,122 @@ export const DB: Record<string, StoreRow[]> = {
     ["8990",41.462207,31.794694,"Tepebaşı Mah. Kapuz Cad. No:16A","8990 - MJET HASTANE ZONGULDAK","","mjet","MERKEZ","M-JET","20.12.2024",208,285],
     ["9016",41.180028,31.387909,"Merkez Mahallesi Yeni PTT Sokak No:5-1","9016 - ALAPLI ZONGULDAK M MİGROS","","migros","ALAPLI","M ANADOLU","24.01.2025",251,509],
     ["9752",41.450481,31.7845,"Terakki Mahallesi Cumhuriyet Caddesi No: 63A","9752 - MJET SOĞUKSU ZONGULDAK","","mjet","MERKEZ","M-JET","23.01.2026",279,469]
+  ],
+  "ÇANAKKALE": [
+    ["4419",40.1240105,26.41101242,"Barbaros Mah. Atatürk Cad. No:207/22","4419 - ÇANAKKALE 17 BURDA MMM MİGROS","","migros","MERKEZ","MMM","9.04.2015",1943,2313],
+    ["4444",39.54765034,26.60491363,"Sahil Mah.Atatürk Cad. No:31/A","4444 - MJET KÜÇÜKKUYU ÇANAKKALE","","mjet","AYVACIK","M-JET","17.04.2015",131,227],
+    ["4542",39.548381,26.607787,"Mıhlı Mahallesi Akgün Albayrak Caddesi No:38","4542 - KÜÇÜKKUYU MM MİGROS","","migros","AYVACIK","MM","15.05.2015",668,1618],
+    ["4617",40.12774,26.41072,"Barbaros Mah. Troya Cad. No:2/1","4617 - TROYPARK MM MİGROS","","migros","MERKEZ","MM","26.06.2015",1016,1765],
+    ["4618",40.10143,26.39825,"Boğazkent Mah. Atatürk Cad. No:126/22","4618 - KEPEZ ÇANAKKALE M MİGROS","","migros","MERKEZ","SELF SERVİS M","23.06.2015",326,455],
+    ["4640",40.19832459,25.9028418,"Fatih Mah. Piri Reis Sok. No:3","4640 - MJET GÖKÇEADA","","mjet","GÖKÇEADA","M-JET","30.06.2015",227,461],
+    ["5033",40.0489838,26.3508415,"Güzelyalı Mah. İzmir Cad. No:67","5033 - MJET GÜZELYALI ÇANAKKALE","","mjet","MERKEZ","M-JET","10.06.2016",161,360],
+    ["5270",40.4189985,26.6743951,"Yazıcızade Mah. Mevlevihane Cad. B/Blok No:18","5270 - MJET GELİBOLU ÇANAKKALE","","mjet","GELİBOLU","M-JET","2.06.2017",283,515],
+    ["5519",40.1135,26.4091,"Barbaros Mah. Atatürk Cad. Kepez İstikameti No:245","5519 - 5M ÇANAKKALE KİPA AVM","","5m","MERKEZ","5M","1.09.2018",3870,6257],
+    ["5640",40.420453,26.668914,"Gazi Süleyman Paşa Mah. 26 Kasım Cad. No:53/A","5640 - GELİBOLU ANZAK MM MİGROS","","migros","GELİBOLU","MM","1.09.2018",816,1165],
+    ["5655",40.223832,27.247558,"Sakarya Mah.Turgut Özal Cad. No:3/1","5655 - BİGA ÇANAKKALE M MİGROS","","migros","BİGA","SELF SERVİS M","1.09.2018",710,1075],
+    ["5770",40.4052465,26.6727885,"Yazıcızade Mh. Tuğsavul Cd. No:1-3","5770 - GELİBOLU TUĞSAVUL M MİGROS","","migros","GELİBOLU","SERVİS REYONLU M","18.12.2018",357,499],
+    ["5855",40.03953357,26.34194869,"Güzelyalı Mah. Tusan Cad. No:19/1","5855 - MJET ESKİ İZMİR CAD.ÇANAKKALE","","mjet","MERKEZ","M-JET","13.06.2018",183,265],
+    ["5910",40.08531414,26.36679442,"Çınarlı Mah. Dardanos Mevkii Dardanos 1.Sok No:2/1","5910 - MJET ÇANAKKALE DARDANOS","","mjet","MERKEZ","M-JET","31.05.2019",156,251],
+    ["5943",39.80591353,26.20271141,"Geyikli Beldesi Cumhuriyet Mah.Çanakkale Cad.","5943 - MJET GEYİKLİ EZİNE","","mjet","EZİNE","M-JET","6.07.2018",337,480],
+    ["6370",40.15278978,26.41004085,"Cevatpaşa Mah. İnönü Cad. No:43 A Blok","6370 - İNÖNÜ CADDESİ ÇANAKKALE M","","migros","MERKEZ","SERVİS REYONLU M","22.11.2019",482,632],
+    ["6424",40.094615,26.409178,"Kepez Belediyesi Hamidiye Mah. Fatih Cad. No.33A","6424 - HAMİDİYE ÇANAKKALE M MİGROS","","migros","MERKEZ","SELF SERVİS M","12.06.2020",606,873],
+    ["6425",40.16376256,26.42792956,"Esenler Mah. Ahmet Piriştina Cad No,:31","6425 - AHMET PİRİŞTİNA ÇANAKKALE M","","migros","MERKEZ","SELF SERVİS M","20.03.2020",485,914],
+    ["6426",40.100204,26.409476,"Hamidiye Mah. Rauf Denktaş Cad. No:14C/25 CBlok","6426 - RAUF DENKTAŞ ÇANAKKALE M","","migros","MERKEZ","SELF SERVİS M","22.05.2020",450,974],
+    ["6638",40.149418,26.447072,"İsmetpaşa Mah. İzmir Cad. No:35","6638 - MJET İSMETPAŞA ÇANAKKALE","","mjet","MERKEZ","M-JET","22.01.2021",250,382],
+    ["6923",40.339311,26.678099,"Gazi Süleyman Paşa Mah. Çanakkale Cad. No:53","6923 - LAPSEKİ ÇANAKKALE M MİGROS","","migros","LAPSEKİ","SELF SERVİS M","22.10.2021",368,576],
+    ["7094",39.82006355,26.16482047,"Geyikli Beldesi Cumhuriyet Mah. Ege Sokak No: 31/1","7094 - GEYİKLİ İSKELE M MİGROS","","migros","EZİNE","SELF SERVİS M","29.04.2022",313,420],
+    ["7102",40.233505,27.236638,"Hamdibey Mah.Sümbül Sok.No:1-3 İç Kapı No:1-2","7102 - HAMDİBEY BİGA ÇANAKKALE M","","migros","BİGA","SELF SERVİS M","1.04.2022",311,1003],
+    ["7161",40.199428,25.917351,"Yeni Mah.Kızılay Cad.","7161 - MJET GÖKÇEADA ÇANAKKALE PO","","mjet","GÖKÇEADA","MJET-İSTASYON","29.04.2022",65,77],
+    ["7884",40.1928,25.9018,"Fatih Mah. Atatürk Cad. No:1","7884 - GÖKÇEADA ÇARŞI MM MİGROS","","migros","GÖKÇEADA","MM","1.06.2023",835,1348],
+    ["7942",40.098696,26.399812,"Kepez Beldesi Cumhuriyet Mah.Vali Mustafa Bey Cd.","7942 - MJET CUMHURİYET MH. ÇANAKKALE","","mjet","MERKEZ","M-JET","21.07.2023",270,444],
+    ["7966",40.430238,26.684615,"Hoca Hamza Mah. Şehit İsmail Türe Cd. No: 54A","7966 - MJET EĞRİTAŞ GELİBOLU ÇAN.","","mjet","GELİBOLU","M-JET","23.06.2023",255,351],
+    ["8102",40.236525,27.263589,"Şirintepe Mah. Kıbrıs Şehitleri Cad. No:35-12/14","8102 - ŞİRİNTEPE BİGA ÇANAKKALE M","","migros","BİGA","SELF SERVİS M","31.10.2023",607,818],
+    ["8153",40.226828,27.248448,"Sakarya mah.Turgut Özal cd. No:1-3 İç kapı no:19 B","8153 - MION PAKT PLUS AVM BİGA Ç.KALE","","mion","BİGA","MION","27.10.2023",120,133],
+    ["8707",40.169441,26.36495,"İsmetpaşa Mah. Piri Reis Cad. No:1/AD","8707 - ECEABAT ÇANAKKALE M MİGROS","","migros","ECEABAT","SELF SERVİS M","9.08.2024",396,611],
+    ["8721",40.419839,26.677407,"Yazıcızade Mah. Dumlupınar Sok No:14/1","8721 - YAZICIZADE GELİBOLU Ç.KALE M","","migros","GELİBOLU","SERVİS REYONLU M","16.08.2024",426,732],
+    ["8887",40.413389,26.668008,"Gazisüleymanpaşa Mah. Saruca Paşa Cad.No:2-10A","8887 - MJET G. SÜLEYMANPAŞA GELİBOLU","","mjet","GELİBOLU","M-JET","28.03.2025",276,333],
+    ["9284",39.78792,26.33874,"Seferşah Mahallesi, Adnan Menderes Caddesi","9284 - MJET EZİNE ÇANAKKALE","","mjet","EZİNE","M-JET","28.03.2025",231,393],
+    ["9444",40.094615,26.409178,"Kepez Belediyesi Hamidiye Mah. Fatih Cad.","9444 - HAMİDİYE ÇANAKKALE M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","22.04.2025",606,873],
+    ["9369",40.026627,27.047861,"Cumhuriyet Mah.Mesut Hulki Önür Cad. No:33","9369 - ÇAN ÇANAKKALE M MİGROS","","migros","ÇAN","SELF SERVİS M","30.05.2025",450,1105],
+    ["9705",40.237335,27.2376205,"HAMDİBEY MAHALLESİ BANDIRMA CADDESİ NO:19 İÇ KAPI","9705 - BANDIRMA CD BİGA ÇANAKKALE MM","","migros","BİGA","MM","18.03.2026",849,2081]
+  ],
+  "ÇANKIRI": [
+    ["3044",40.599438,33.625782,"Buğday Pazarı Mah. Atatürk Bul. No:51/A","3044 - ÇANKIRI MM MIGROS","","migros","MERKEZ","MM","24.09.2010",1116,1779],
+    ["7449",40.812681,32.888184,"Karamuklu Mah. Hükümet Cd.","7449 - ÇERKEŞ ÇANKIRI M MİGROS","","migros","ÇERKEŞ","M ANADOLU","14.12.2022",427,524],
+    ["7901",40.921021,33.623203,"Gazi Dede Mah Şehit Cemil Çelik Cad No: 24A","7901 - ILGAZ ÇANKIRI M MİGROS","","migros","ILGAZ","M ANADOLU","24.05.2023",425,525],
+    ["7994",40.481562,33.281762,"Sağlık Mah. Asya Sokak No: 7/17","7994 - ŞABANÖZÜ ÇANKIRI M MİGROS","","migros","ŞABANÖZÜ","M ANADOLU","14.07.2023",359,678],
+    ["8091",40.59184,33.627765,"Buğday Pazarı Mah Beşkavaklar Cad No: 31/13","8091 - MJET BEŞKAVAKLAR CD ÇANKIRI","","mjet","MERKEZ","M-JET","31.08.2023",239,309]
+  ],
+  "ÇORUM": [
+    ["3336",40.546034,34.968297,"Bahçelievler Mah. Bahabey Cad. No:59/A","3336 - ÇORUM MM MİGROS","","migros","MERKEZ","MM","31.03.2011",1171,1720],
+    ["4320",40.5378,34.9531,"Gülabibey Mah. Cemilbey Cad. No:83/C","4320 - ÇORUM SİGORTA M MİGROS","","migros","MERKEZ","SELF SERVİS M","2.10.2014",507,694],
+    ["4321",40.569485,34.963806,"Üçtutlar Mah. Dr. İlhan Gürel Cad. No: 16/21","4321 - BİNEVLER ÇORUM M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","21.09.2015",372,1122],
+    ["5174",40.544254,34.947617,"Çephi Mah. Kerebi Gazi 1.Sok No:7/4","5174 - AHL PARK AVM ÇORUM MMM MİGROS","","migros","MERKEZ","MMM","19.11.2016",1619,2670],
+    ["6144",40.550355,34.968184,"Bahçelievler Mah. Şenyurt Cad. No:8/A","6144 - MJET ÇORUM BAHÇELİEVLER","","mjet","MERKEZ","M-JET","1.10.2018",238,335],
+    ["6244",40.549446,34.965362,"Bahçelievler Mah. Bahabey Cad. No:27/F","6244 - MJET BAHABEY ÇORUM","","mjet","MERKEZ","M-JET","16.04.2019",330,418],
+    ["7478",40.977029,34.803145,"Yeni Mah. Şehit Ahmet Balcı Sk.Kanuni Apt. A blok","7478 - OSMANCIK ÇORUM M MİGROS","","migros","OSMANCIK","M ANADOLU","25.11.2022",424,504],
+    ["8217",40.558918,34.959939,"Üçtutlar Mah. Eşref Hoca Cad. No: 16A","8217 - EŞREF HOCA CD ÇORUM M","","migros","MERKEZ","SELF SERVİS M","10.11.2023",370,600],
+    ["8399",40.571777,34.992221,"Üçtutlar Mahallesi Samsun Yolu Bulvarı No: 13B","8399 - MJET SEYYAH PARK ÇORUM","","mjet","MERKEZ","M-JET","25.01.2024",209,439],
+    ["8779",40.1693969,34.8430156,"Yıldızhan Mah. Koca Yusuf Sok. No: 2/13","8779 - ALACA ÇORUM M MİGROS","","migros","ALACA","M ANADOLU","6.08.2024",246,421],
+    ["8818",40.53451385,34.96612298,"Kale Mah. Ata Cad. No:126/A-B","8818 - MJET ATA CADDESİ MERKEZ ÇORUM","","mjet","MERKEZ","M-JET","9.08.2024",269,546],
+    ["9622",40.5378,34.9531,"GÜLABİBEY MAH. CEMİLBEY CAD.","9622 - MJET SİGORTA ÇORUM","","mjet","MERKEZ","M-JET","22.07.2025",325,507]
+  ],
+  "ŞANLIURFA": [
+    ["3019",37.182023,38.807155,"Esentepe Mah.Vatan Cad.Urfa City AVM  Apt.NO:2/7","3019 - URFA CİTY MM MIGROS","","migros","KARAKÖPRÜ","MM","1.09.2010",1527,2522],
+    ["4053",37.7529,39.319,"Camikebir Mah. Hürriyet Cad. NO:44/A","4053 - SİVEREK ŞANLIURFA M MİGROS","","migros","SİVEREK","SELF SERVİS M","4.07.2013",436,784],
+    ["4687",37.156944,38.779722,"Karakoyunlu Mahallesi 11 Nisan Fuar Cad. No:42/1","4687 - URFA PİAZZA MMM MİGROS","","migros","EYYÜBİYE","MMM","1.08.2015",1800,2605],
+    ["4890",37.221475,38.80512,"Şenevler Mahallesi Atatürk Bul. No:50/A-1","4890 - ŞENEVLER ŞANLIURFA M MİGROS","","migros","KARAKÖPRÜ","SERVİS REYONLU M","16.12.2015",347,684],
+    ["5051",37.164955,38.79567,"Bamyasuyu Mah. Çanakkale 18 Mart Cad.No:6/29","5051 - NOVADA ŞANLIURFA MM MİGROS","","migros","HALİLİYE","MM","17.03.2017",1021,1203],
+    ["5908",37.75178,39.329872,"Ofis Mah. Mustafa Remzi Bucak Bulv.NO:14/A-B","5908 - BAHÇELİEVLER SİVEREK M MİGROS","","migros","SİVEREK","SERVİS REYONLU M","24.05.2018",339,930],
+    ["6134",37.016419,37.973912,"Meydan Mah. Dr. Abdulkadir Erdil Cad No:35 A-B","6134 - BİRECİK ŞANLIURFA M MİGROS","","migros","BİRECİK","SELF SERVİS M","18.04.2019",490,1213],
+    ["6508",37.216808,38.796853,"Şenevler Mah. GAP Bulvarı NO:132 /A","6508 - GAP BULVARI ŞANLIURFA M","","migros","KARAKÖPRÜ","SERVİS REYONLU M","30.06.2020",635,1392],
+    ["6828",37.751388,39.333028,"Ofis Mah. Mustafa Remzi Bucak Bulv.NO:24-A","6828 - MJET Ş.URFA SİVEREK OFİS MAH","","mjet","SİVEREK","M-JET","29.06.2021",320,655],
+    ["6834",37.224767,39.753679,"Yenişehir Mah. 3 Cadde 12/A No:5","6834 - VİRANŞEHİR ŞANLIURFA M","","migros","VİRANŞEHİR","SERVİS REYONLU M","6.07.2021",497,790],
+    ["6835",37.169417,38.800969,"Selahattin Eyyubi Mah. 218 Sokak No:14","6835 - MJET ŞANLIURFA POLDEM","","mjet","HALİLİYE","M-JET","28.06.2021",376,887],
+    ["6978",37.194462,38.80608,"Akbayır Mah.Yeşiloğlu Bulvarı Karaköprü Avm","6978 - ŞANLIURFA KARAKÖPRÜ AVM MM","","migros","KARAKÖPRÜ","MM","16.12.2021",729,1108],
+    ["7431",36.86198,40.046211,"Ceylanpınar Mah. Dayan apartmanı altı","7431 - CEYLANPINAR ŞANLIURFA M MİGROS","","migros","CEYLANPINAR","M ANADOLU","25.11.2022",460,659],
+    ["7438",36.982803,38.426247,"Sarayaltı Mah. 11 Nisan Cad. no:90/A","7438 - SURUÇ ŞANLIURFA M MİGROS","","migros","SURUÇ","M ANADOLU","8.12.2022",322,678],
+    ["8263",37.223695,38.804614,"Atakent Mah. Atatürk Bulv. No:41/C","8263 - MION KARAKÖPRÜ Ş.URFA","","mion","KARAKÖPRÜ","MION","28.12.2023",112,205],
+    ["8304",37.742782,39.331355,"Yenişehir Mah. Bahri Karakeçili Cad.","8304 - MJET SARAYKENT SİVEREK Ş.URFA","","mjet","SİVEREK","M-JET","8.12.2023",200,256],
+    ["8326",37.585803,38.959672,"Yeni Mah. Diyarbakır Cad. No:137E","8326 - YENİ MAH.HİLVAN ŞANLIURFA M","","migros","HİLVAN","M ANADOLU","14.12.2023",338,926],
+    ["8972",37.190245,38.802511,"Karşıyaka Mah. Recep Tayip Erdoğan Bulvarı 25B","8972 - KARŞIYAKA MH ŞANLIURFA M","","migros","KARAKÖPRÜ","SELF SERVİS M","28.11.2024",553,1225],
+    ["9289",37.228497,37.947656,"Siyahgül Mah. Hastane Caddesi No:15a-15b","9289 - HALFETİ ŞANLIURFA M MİGROS","","migros","HALFETİ","M ANADOLU","18.06.2025",249,482],
+    ["9688",37.201491,38.817312,"DOĞUKENT MAH. FATİH SULTAN MEHMET BLV. NO:3A-3B","9688 - GÜZELŞEHİR KARAKÖPRÜ Ş.URFA M","","migros","KARAKÖPRÜ","SELF SERVİS M","15.10.2025",376,763],
+    ["9927",37.212098,38.797613,"ÇANKAYA MH. ŞANLIURFA-D.BAKIR YOLU NO:72A","9927 - MJET ÇANKAYA MH ŞANLIURFA PO","","mjet","KARAKÖPRÜ","MJET-İSTASYON","16.02.2026",126,137]
+  ],
+  "ŞIRNAK": [
+    ["5891",37.327213,42.186628,"Şah Mah. Cahferi Sadık Cad. No:1A/3","5891 - CİZRE ŞIRNAK MM MİGROS","","migros","CİZRE","MM","30.03.2018",878,1550],
+    ["6439",37.326471,42.21371,"Konak Mah. Silopi Bulvarı  No:189 DA","6439 - CİZRE PARK AVM M MİGROS","","migros","CİZRE","SERVİS REYONLU M","24.07.2020",632,783],
+    ["7158",37.516597,42.46398,"Yeşilyurt Mah.Uludere Cad.No:2","7158 - ŞIRNAK MM MİGROS","","migros","MERKEZ","MM","27.04.2022",820,1225],
+    ["7201",37.242758,42.476495,"172 Zırhı Turgay Karşısı İpekyolu Bulv No:8/C","7201 - SİLOPİ ŞIRNAK MM MİGROS","","migros","SİLOPİ","MM","27.05.2022",806,1143],
+    ["7435",37.514297,42.449692,"Bahçelievler Mah. 15 Temmuz Bulvarı No: 88 A","7435 - MJET BAHÇELİEVLER MAH. ŞIRNAK","","mjet","MERKEZ","M-JET","10.11.2022",240,323],
+    ["7593",37.518958,42.453092,"Atatürk Mah. Vilayet Bulvarı No:24D/E","7593 - MJET EMNİYET ŞIRNAK","","mjet","MERKEZ","M-JET","22.12.2022",248,470],
+    ["8244",37.3425125,41.8895374,"Yeni Mah. Ebuzeyd Çevrim Sok. Dış Kapı No:1","8244 - MJET İDİL ŞIRNAK","","mjet","İDİL","M-JET","10.11.2023",260,438],
+    ["8327",37.52198,42.458124,"Aydınlıkevler Mah. Cumhuriyet Bulv. No:25 Z4","8327 - MION CUMHURİYET BLV ŞIRNAK","","mion","MERKEZ","MION","27.12.2023",129,139],
+    ["8329",37.521581,42.4582452,"Aydınlıkevler Mah. Cumhuriyet Bulv. No:25-Z3","8329 - YENİ MAHALLE ŞIRNAK M MİGROS","","migros","MERKEZ","SERVİS REYONLU M","27.12.2023",435,625],
+    ["8694",37.342144,41.882292,"Turgut Özal Mah. Adile Naşit Cad.","8694 - TURGUT ÖZAL BLV İDİL ŞIRNAK M","","migros","İDİL","SERVİS REYONLU M","13.06.2024",454,989],
+    ["9266",37.326264,42.214303,"Cumhuriyet Mh. Silopi Blv. No:117bj","9266 - MION CİZRE PARK ŞIRNAK","","mion","CİZRE","MION","2.06.2025",135,160]
   ]
 };
 
+const trCollator = new Intl.Collator('tr');
+
 export function getIller(): string[] {
-  return Object.keys(DB).sort((a, b) => a.localeCompare(b, 'tr'));
+  return Object.keys(DB).sort((a, b) => trCollator.compare(a, b));
 }
 
 export function getIlceler(il: string): string[] {
   if (!il || !DB[il]) return [];
-  const set = new Set(DB[il].map(s => s[7]));
-  return Array.from(set).sort((a, b) => a.localeCompare(b, 'tr'));
+  const set = new Set(DB[il].map(s => s[7]).filter(Boolean));
+  return Array.from(set).sort((a, b) => trCollator.compare(a, b));
+}
+
+function searchable(text: string): string {
+  return text.toLocaleLowerCase('tr');
+}
+
+export function hasValidCoords(row: StoreRow): boolean {
+  return Number.isFinite(row[1]) && Number.isFinite(row[2]) && row[1] !== 0 && row[2] !== 0;
 }
 
 export function filterStores(il: string | null, ilce: string | null, search: string, brands: Set<string>): StoreRow[] {
@@ -4251,20 +4261,24 @@ export function filterStores(il: string | null, ilce: string | null, search: str
     Object.values(DB).forEach(list => { all = all.concat(list); });
   }
 
+  const q = searchable(search.trim());
+
   return all.filter(s => {
     const matchesIlce = !ilce || s[7] === ilce;
-    const matchesSearch = !search || s[4].toLowerCase().includes(search.toLowerCase()) || s[3].toLowerCase().includes(search.toLowerCase());
+    const haystack = searchable(`${s[4]} ${s[3]} ${s[0]}`);
+    const matchesSearch = !q || haystack.includes(q);
     const matchesBrand = brands.size === 0 || brands.has(s[6]);
     return matchesIlce && matchesSearch && matchesBrand;
   });
 }
 
 export function searchStores(query: string): StoreRow[] {
-  if (!query) return [];
-  const q = query.toLowerCase();
+  const q = searchable(query.trim());
+  if (!q) return [];
+
   let results: StoreRow[] = [];
   Object.values(DB).forEach(list => {
-    const found = list.filter(s => s[4].toLowerCase().includes(q) || s[3].toLowerCase().includes(q));
+    const found = list.filter(s => hasValidCoords(s) && searchable(`${s[4]} ${s[3]} ${s[0]}`).includes(q));
     results = results.concat(found);
   });
   return results.slice(0, 20);

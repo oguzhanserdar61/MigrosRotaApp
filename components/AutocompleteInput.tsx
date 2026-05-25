@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View, Text, TextInput, Pressable, FlatList,
   StyleSheet, Modal, TouchableOpacity, KeyboardAvoidingView, Platform,
@@ -45,51 +45,64 @@ export function AutocompleteInput({ label, value, placeholder, options, onSelect
         <Text style={styles.arrow}>▾</Text>
       </Pressable>
 
-      <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
-        <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={() => setOpen(false)} />
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          style={styles.modalContainer}
-        >
-          <View style={styles.sheet}>
-            <View style={styles.sheetHeader}>
-              <Text style={styles.sheetTitle}>{label} Seç</Text>
-              <Pressable onPress={() => setOpen(false)}>
-                <Text style={styles.closeBtn}>✕</Text>
-              </Pressable>
-            </View>
-
-            <TextInput
-              style={styles.searchInput}
-              placeholder={`${label} ara...`}
-              value={query}
-              onChangeText={t => { setQuery(t); onChangeText?.(t); }}
-              autoFocus
-              clearButtonMode="while-editing"
-            />
-
-            <FlatList
-              data={filtered}
-              keyExtractor={item => item.value}
-              keyboardShouldPersistTaps="handled"
-              renderItem={({ item }) => (
-                <Pressable
-                  style={({ pressed }) => [styles.option, pressed && styles.optionPressed]}
-                  onPress={() => pick(item.value)}
-                >
-                  <Text style={[styles.optionText, item.value === value && styles.optionActive]}>
-                    {item.value}
-                  </Text>
-                  {item.count !== undefined && (
-                    <Text style={styles.optionCount}>{item.count}</Text>
-                  )}
+      <Modal
+        visible={open}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setOpen(false)}
+        statusBarTranslucent
+      >
+        <View style={styles.modalOverlay}>
+          <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={() => setOpen(false)} />
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            style={styles.modalContainer}
+          >
+            <View style={styles.sheet}>
+              <View style={styles.sheetHeader}>
+                <Text style={styles.sheetTitle}>{label} Seç</Text>
+                <Pressable onPress={() => setOpen(false)} hitSlop={12}>
+                  <Text style={styles.closeBtn}>✕</Text>
                 </Pressable>
-              )}
-              ItemSeparatorComponent={() => <View style={styles.sep} />}
-              style={styles.list}
-            />
-          </View>
-        </KeyboardAvoidingView>
+              </View>
+
+              <TextInput
+                style={styles.searchInput}
+                placeholder={`${label} ara...`}
+                value={query}
+                onChangeText={t => { setQuery(t); onChangeText?.(t); }}
+                autoFocus
+                clearButtonMode="while-editing"
+              />
+
+              <FlatList
+                data={filtered}
+                keyExtractor={item => item.value}
+                keyboardShouldPersistTaps="always"
+                style={styles.list}
+                renderItem={({ item }) => (
+                  <Pressable
+                    style={({ pressed }) => [styles.option, pressed && styles.optionPressed]}
+                    onPress={() => pick(item.value)}
+                  >
+                    <Text style={[styles.optionText, item.value === value && styles.optionActive]}>
+                      {item.value}
+                    </Text>
+                    {item.count !== undefined && (
+                      <Text style={styles.optionCount}>{item.count}</Text>
+                    )}
+                  </Pressable>
+                )}
+                ItemSeparatorComponent={() => <View style={styles.sep} />}
+                ListEmptyComponent={() => (
+                  <Text style={styles.emptyText}>
+                    {label === 'İlçe' && !value && options.length === 0 ? 'Önce il seçin' : 'Sonuç bulunamadı'}
+                  </Text>
+                )}
+              />
+            </View>
+          </KeyboardAvoidingView>
+        </View>
       </Modal>
     </View>
   );
@@ -111,14 +124,23 @@ const styles = StyleSheet.create({
   inputText: { flex: 1, fontSize: 13, color: Colors.txt },
   placeholder: { color: Colors.txt3 },
   arrow: { fontSize: 10, color: Colors.txt3 },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
+  },
   backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)' },
-  modalContainer: { position: 'absolute', bottom: 0, left: 0, right: 0 },
+  modalContainer: {
+    width: '100%',
+    zIndex: 2,
+  },
   sheet: {
     backgroundColor: 'white',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     maxHeight: 520,
     paddingBottom: 20,
+    zIndex: 3,
   },
   sheetHeader: {
     flexDirection: 'row',
@@ -140,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.txt,
   },
-  list: { flexGrow: 0 },
+  list: { flexGrow: 0, maxHeight: 420 },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -152,4 +174,5 @@ const styles = StyleSheet.create({
   optionActive: { color: Colors.orange, fontWeight: '600' },
   optionCount: { fontSize: 12, color: Colors.txt3 },
   sep: { height: 0.5, backgroundColor: Colors.border, marginLeft: 16 },
+  emptyText: { textAlign: 'center', padding: 24, color: Colors.txt3, fontSize: 13 },
 });

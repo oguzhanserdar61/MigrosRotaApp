@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import {
-  View, Text, TextInput, Pressable,
+  View, Text, TextInput, Pressable, FlatList, Platform,
   StyleSheet, StatusBar, Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -179,14 +179,23 @@ export default function MagazalarScreen() {
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          <FlashList
-            data={filtered}
-            renderItem={renderItem}
-            estimatedItemSize={58}
-            keyExtractor={item => item[0]}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 20 }}
-          />
+          {Platform.OS === 'web' ? (
+            <FlatList
+              data={filtered}
+              renderItem={renderItem}
+              keyExtractor={item => item[0]}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: 20 }}
+            />
+          ) : (
+            <FlashList
+              data={filtered}
+              renderItem={renderItem}
+              keyExtractor={item => item[0]}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: 20 }}
+            />
+          )}
         </View>
       )}
 

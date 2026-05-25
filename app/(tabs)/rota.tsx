@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import {
   View, Text, Pressable, ScrollView,
-  StyleSheet, Linking, Alert,
+  StyleSheet, Linking, Alert, Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../constants/theme';
@@ -26,6 +26,15 @@ function StatKart({ label, value, unit }: { label: string; value: string; unit?:
       </Text>
     </View>
   );
+}
+
+function openExternalUrl(url: string) {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    window.open(url, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
+  Linking.openURL(url);
 }
 
 export default function RotaScreen() {
@@ -141,7 +150,7 @@ export default function RotaScreen() {
       let url = `https://www.google.com/maps/dir/${encodeURIComponent(origin)}`;
       waypoints.forEach(w => { url += `/${encodeURIComponent(w)}`; });
       url += `/${encodeURIComponent(dest)}`;
-      Linking.openURL(url);
+      openExternalUrl(url);
     };
 
     const openApple = () => {
@@ -149,8 +158,13 @@ export default function RotaScreen() {
       const daddrParts = waypoints.map(w => encodeURIComponent(w));
       daddrParts.push(encodeURIComponent(dest));
       const url = `http://maps.apple.com/?saddr=${encodeURIComponent(origin)}&daddr=${daddrParts.join('+to:')}&dirflg=d`;
-      Linking.openURL(url);
+      openExternalUrl(url);
     };
+
+    if (Platform.OS === 'web') {
+      openGoogle();
+      return;
+    }
 
     Alert.alert(
       'Haritada Göster',

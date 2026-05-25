@@ -9,6 +9,7 @@ import { useRotaStore } from '../../store/rotaStore';
 import { NumberWheelPicker } from '../../components/NumberWheelPicker';
 import { TimeWheelPicker } from '../../components/TimeWheelPicker';
 import { Header } from '../../components/Header';
+import { DB, getIller } from '../../utils/magazaData';
 
 export default function AyarlarScreen() {
   const {
@@ -23,6 +24,8 @@ export default function AyarlarScreen() {
   const minOptions = Array.from({ length: 24 }, (_, i) => (i + 1) * 5); // 5, 10, ..., 120
   const targetOptions = Array.from({ length: 20 }, (_, i) => i + 1); // 1-20
   const maxTimeOptions = Array.from({ length: 16 }, (_, i) => i + 1); // 1-16
+  const toplamMagaza = Object.values(DB).reduce((sum, stores) => sum + stores.length, 0);
+  const toplamIl = getIller().length;
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -70,15 +73,15 @@ export default function AyarlarScreen() {
           <Text style={styles.sectionTitle}>Hakkında</Text>
           <View style={styles.aboutRow}>
             <Text style={styles.aboutKey}>Veri kaynağı</Text>
-            <Text style={styles.aboutVal}>money.com.tr</Text>
+            <Text style={styles.aboutVal}>Magaza_Listesi.xlsx</Text>
           </View>
           <View style={styles.aboutRow}>
             <Text style={styles.aboutKey}>Toplam mağaza</Text>
-            <Text style={styles.aboutVal}>4.709</Text>
+            <Text style={styles.aboutVal}>{toplamMagaza.toLocaleString('tr')}</Text>
           </View>
           <View style={styles.aboutRow}>
             <Text style={styles.aboutKey}>Kapsanan il</Text>
-            <Text style={styles.aboutVal}>82</Text>
+            <Text style={styles.aboutVal}>{toplamIl.toLocaleString('tr')}</Text>
           </View>
           <View style={styles.aboutRow}>
             <Text style={styles.aboutKey}>Algoritma</Text>

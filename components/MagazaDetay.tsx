@@ -3,31 +3,52 @@ import { View, Text, Pressable, StyleSheet, Linking, Modal, TouchableOpacity, Al
 import { Colors, getBrand } from '../constants/theme';
 import { BrandIcon } from './BrandIcon';
 import { useRotaStore } from '../store/rotaStore';
-import type { StoreRow } from '../utils/magazaData';
+import { hasValidCoords, type StoreRow } from '../utils/magazaData';
 
 interface Props {
   row: StoreRow | null;
   onClose: () => void;
 }
 
+function openExternalUrl(url: string) {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    window.open(url, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
+  Linking.openURL(url);
+}
+
 export function MagazaDetay({ row, onClose }: Props) {
   const { secili, toggleSecim } = useRotaStore();
   if (!row) return null;
+  const store: StoreRow = row;
 
-  const [id, lat, lng, adres, isim, telefon, brandCode, ilce, format, acilisTarihi, satisM2, genelM2] = row;
+  const [id, lat, lng, adres, isim, telefon, brandCode, , format, acilisTarihi, satisM2, genelM2] = store;
   const brand = getBrand(brandCode);
   const isSelected = secili.some(m => m[0] === id);
+  const validCoords = hasValidCoords(store);
 
   function haritaAc() {
+    if (!validCoords) {
+      Alert.alert('Koordinat eksik', 'Bu mağaza için harita konumu bulunmuyor.');
+      return;
+    }
+
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
     const appleMapsUrl = `maps://0,0?q=${encodeURIComponent(isim)}&ll=${lat},${lng}`;
+
+    if (Platform.OS === 'web') {
+      openExternalUrl(googleMapsUrl);
+      return;
+    }
 
     Alert.alert(
       'Haritada Gör',
       'Hangi uygulama ile açmak istersiniz?',
       [
-        { text: 'Google Maps', onPress: () => Linking.openURL(googleMapsUrl) },
-        { text: 'Apple Haritalar', onPress: () => Linking.openURL(appleMapsUrl) },
+        { text: 'Google Maps', onPress: () => openExternalUrl(googleMapsUrl) },
+        { text: 'Apple Haritalar', onPress: () => openExternalUrl(appleMapsUrl) },
         { text: 'İptal', style: 'cancel' }
       ]
     );
@@ -37,8 +58,18 @@ export function MagazaDetay({ row, onClose }: Props) {
     if (telefon) Linking.openURL(`tel:0${telefon.slice(3)}`);
   }
 
+  function rotaSeciminiDegistir() {
+    if (!validCoords && !isSelected) {
+      Alert.alert('Koordinat eksik', 'Koordinatı olmayan mağazalar rotaya eklenemez.');
+      return;
+    }
+
+    toggleSecim(store);
+    onClose();
+  }
+
   return (
-    <Modal visible={!!row} transparent animationType="slide" onRequestClose={onClose}>
+    <Modal visible transparent animationType="slide" onRequestClose={onClose}>
       <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={onClose} />
       <View style={styles.sheet}>
         <View style={styles.handle} />
@@ -82,20 +113,20 @@ export function MagazaDetay({ row, onClose }: Props) {
           ) : null}
           <View style={styles.row}>
             <Text style={styles.rowKey}>Koordinat</Text>
-            <Text style={styles.rowVal}>{lat.toFixed(4)}, {lng.toFixed(4)}</Text>
+            <Text style={styles.rowVal}>{validCoords ? `${lat.toFixed(4)}, ${lng.toFixed(4)}` : '-'}</Text>
           </View>
         </View>
 
         <View style={styles.actions}>
-          <Pressable style={styles.btnMap} onPress={haritaAc}>
+          <Pressable style={[styles.btnMap, !validCoords && styles.btnDisabled]} onPress={haritaAc}>
             <Text style={styles.btnMapText}>🗺 Haritada Gör</Text>
           </Pressable>
           <Pressable
-            style={[styles.btnAdd, isSelected && styles.btnAdded]}
-            onPress={() => { toggleSecim(row); onClose(); }}
+            style={[styles.btnAdd, isSelected && styles.btnAdded, !validCoords && !isSelected && styles.btnDisabled]}
+            onPress={rotaSeciminiDegistir}
           >
             <Text style={styles.btnAddText}>
-              {isSelected ? '✓ Rotadan Çıkar' : '+ Rotaya Ekle'}
+              {isSelected ? '✓ Rotadan Çıkar' : validCoords ? '+ Rotaya Ekle' : 'Koordinat Yok'}
             </Text>
           </Pressable>
         </View>
@@ -155,5 +186,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnAdded: { backgroundColor: '#1A7F4B' },
+  btnDisabled: { opacity: 0.45 },
   btnAddText: { fontSize: 13, color: 'white', fontWeight: '600' },
 });
