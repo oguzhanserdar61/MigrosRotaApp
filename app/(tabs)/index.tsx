@@ -143,9 +143,34 @@ export default function MagazalarScreen() {
                   <Pressable 
                     {...pressHandlers(() => {
                       if (startPoint) {
+                        const { secili, tur, endPoint: currentEndPoint } = useRotaStore.getState();
+                        const currentStoreCount = secili.length;
+                        const startCount = 1; // startPoint zaten var
+                        const endCount = currentEndPoint ? 1 : 0;
+                        
+                        // Eğer bitiş noktası zaten seçiliyse (endCount=1), değişim yapıyoruz demektir.
+                        // Eğer bitiş noktası boşsa (endCount=0), yeni bir nokta ekliyoruz demektir (+1).
+                        const isAddingNewPoint = !currentEndPoint;
+                        const totalCountInRoute = currentStoreCount + startCount + (isAddingNewPoint ? 1 : 0);
+
+                        if (totalCountInRoute > tur.hedefMagaza) {
+                          const msg = `Hedef Mağaza sayısına (${tur.hedefMagaza}) ulaşıldı. Bitiş noktasını eklemek için Ayarlar sayfasından hedef mağaza sayısını artırmalısınız.`;
+                          if (Platform.OS === 'web') {
+                            alert(`Sınır Aşıldı\n\n${msg}`);
+                          } else {
+                            Alert.alert('Sınır Aşıldı', msg);
+                          }
+                          return;
+                        }
+                        
                         endPointAyarla(startPoint);
                       } else {
-                        Alert.alert('Uyarı', 'Lütfen Başlangıç Noktası Seçiniz.');
+                        const msg = 'Lütfen Başlangıç Noktası Seçiniz.';
+                        if (Platform.OS === 'web') {
+                          alert(msg);
+                        } else {
+                          Alert.alert('Uyarı', msg);
+                        }
                       }
                     })}
                   >

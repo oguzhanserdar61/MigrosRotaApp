@@ -137,6 +137,26 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
   }
 
   function pick(item: LocationItem) {
+    const { secili, tur, startPoint, endPoint } = useRotaStore.getState();
+    const currentStoreCount = secili.length;
+    const startCount = startPoint ? 1 : 0;
+    const endCount = endPoint ? 1 : 0;
+    
+    // Eğer bu alan zaten doluysa (null değilse), aslında bir değişim yapıyoruz demektir (sayı artmaz).
+    // Eğer alan boşsa (null ise), yeni bir nokta ekliyoruz demektir (sayı +1 artar).
+    const isAddingNewPoint = !value;
+    const totalCountInRoute = currentStoreCount + startCount + endCount + (isAddingNewPoint ? 1 : 0);
+
+    if (totalCountInRoute > tur.hedefMagaza) {
+      const msg = `Hedef Mağaza sayısına (${tur.hedefMagaza}) ulaşıldı. Yeni bir nokta (başlangıç/bitiş/mağaza) eklemek için Ayarlar sayfasından hedef mağaza sayısını artırmalısınız.`;
+      if (Platform.OS === 'web') {
+        alert(`Sınır Aşıldı\n\n${msg}`);
+      } else {
+        Alert.alert('Sınır Aşıldı', msg);
+      }
+      return;
+    }
+
     onSelect(item);
     setOpen(false);
   }
