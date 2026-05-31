@@ -32,15 +32,19 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
   useEffect(() => {
     if (visible) {
       const [h, m] = value.split(':');
-      const hIdx = HOURS.indexOf(h);
-      const mIdx = MINUTES.indexOf(m);
-      
-      setTimeout(() => {
-        if (hIdx !== -1) hourRef.current?.scrollToOffset({ offset: hIdx * ITEM_HEIGHT, animated: false });
-        if (mIdx !== -1) minRef.current?.scrollToOffset({ offset: mIdx * ITEM_HEIGHT, animated: false });
-      }, 50);
+      setCurrentHour(h);
+      setCurrentMin(m);
+
+      if (Platform.OS !== 'web') {
+        const hIdx = HOURS.indexOf(h);
+        const mIdx = MINUTES.indexOf(m);
+        setTimeout(() => {
+          if (hIdx !== -1) hourRef.current?.scrollToOffset({ offset: hIdx * ITEM_HEIGHT, animated: false });
+          if (mIdx !== -1) minRef.current?.scrollToOffset({ offset: mIdx * ITEM_HEIGHT, animated: false });
+        }, 50);
+      }
     }
-  }, [visible]);
+  }, [visible, value]);
 
   const handleDone = () => {
     onSelect(`${currentHour}:${currentMin}`);
@@ -69,13 +73,37 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
     });
 
     return (
-      <View style={[styles.itemContainer, Platform.OS === 'web' && { scrollSnapAlign: 'center' } as any]}>
+      <View style={styles.itemContainer}>
         <Animated.Text style={[styles.itemText, { opacity, transform: [{ scale }] }]}>
           {item}
         </Animated.Text>
       </View>
     );
   };
+
+  const renderWebList = (data: string[], current: string, setter: (v: string) => void, title: string) => (
+    <View style={styles.webWheelBox}>
+      <Text style={styles.webWheelTitle}>{title}</Text>
+      <FlatList
+        data={data}
+        renderItem={({ item }) => {
+          const isSelected = item === current;
+          return (
+            <TouchableOpacity
+              style={[styles.webItem, isSelected && { backgroundColor: 'rgba(255,103,0,0.1)' }]}
+              onPress={() => setter(item)}
+            >
+              <Text style={[styles.itemText, isSelected && { color: Colors.orange, fontWeight: '700' }]}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          );
+        }}
+        keyExtractor={item => item}
+        showsVerticalScrollIndicator={true}
+      />
+    </View>
+  );
 
   return (
     <Modal visible={visible} transparent animationType="slide">
@@ -88,84 +116,55 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.pickerWrapper}>
-          <View style={styles.selectionFrame} pointerEvents="none" />
-          
-          <View style={styles.wheelBox}>
-            <Animated.FlatList
-              ref={hourRef}
-              data={HOURS}
-              renderItem={renderItem(scrollYHour)}
-              keyExtractor={(_, i) => `h-${i}`}
-              showsVerticalScrollIndicator={false}
-              snapToInterval={ITEM_HEIGHT}
-              snapToAlignment="center"
-              decelerationRate={Platform.OS === 'web' ? 0.9 : "fast"}
-              onMomentumScrollEnd={(e) => {
-                const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-                if (HOURS[index]) setCurrentHour(HOURS[index]);
-              }}
-              onScrollEndDrag={(e) => {
-                if (Platform.OS === 'web') {
-                  const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-                  if (HOURS[index]) setCurrentHour(HOURS[index]);
-                }
-              }}
-              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYHour } } }], { 
-                useNativeDriver: Platform.OS !== 'web',
-                listener: (e: any) => {
-                  if (Platform.OS === 'web') {
+        <View style={[styles.pickerWrapper, Platform.OS === 'web' && { height: 300 }]}>
+          {Platform.OS === 'web' ? (
+            <View style={styles.webWrapper}>
+              {renderWebList(HOURS, currentHour, setCurrentHour, "Saat")}
+              <Text style={styles.colon}>:</Text>
+              {renderWebList(MINUTES, currentMin, setCurrentMin, "Dakika")}
+            </View>
+          ) : (
+            <>
+              <View style={styles.selectionFrame} pointerEvents="none" />
+              <View style={styles.wheelBox}>
+                <Animated.FlatList
+                  ref={hourRef}
+                  data={HOURS}
+                  renderItem={renderItem(scrollYHour)}
+                  keyExtractor={(_, i) => `h-${i}`}
+                  showsVerticalScrollIndicator={false}
+                  snapToInterval={ITEM_HEIGHT}
+                  snapToAlignment="center"
+                  decelerationRate="fast"
+                  onMomentumScrollEnd={(e) => {
                     const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
                     if (HOURS[index]) setCurrentHour(HOURS[index]);
-                  }
-                }
-              })}
-              scrollEventThrottle={16}
-              contentContainerStyle={{ 
-                paddingVertical: ITEM_HEIGHT * 2,
-              }}
-              style={Platform.OS === 'web' ? { scrollSnapType: 'y mandatory' } as any : {}}
-            />
-          </View>
-
-          <Text style={styles.colon}>:</Text>
-
-          <View style={styles.wheelBox}>
-            <Animated.FlatList
-              ref={minRef}
-              data={MINUTES}
-              renderItem={renderItem(scrollYMin)}
-              keyExtractor={(_, i) => `m-${i}`}
-              showsVerticalScrollIndicator={false}
-              snapToInterval={ITEM_HEIGHT}
-              snapToAlignment="center"
-              decelerationRate={Platform.OS === 'web' ? 0.9 : "fast"}
-              onMomentumScrollEnd={(e) => {
-                const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-                if (MINUTES[index]) setCurrentMin(MINUTES[index]);
-              }}
-              onScrollEndDrag={(e) => {
-                if (Platform.OS === 'web') {
-                  const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-                  if (MINUTES[index]) setCurrentMin(MINUTES[index]);
-                }
-              }}
-              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYMin } } }], { 
-                useNativeDriver: Platform.OS !== 'web',
-                listener: (e: any) => {
-                  if (Platform.OS === 'web') {
+                  }}
+                  onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYHour } } }], { useNativeDriver: true })}
+                  contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
+                />
+              </View>
+              <Text style={styles.colon}>:</Text>
+              <View style={styles.wheelBox}>
+                <Animated.FlatList
+                  ref={minRef}
+                  data={MINUTES}
+                  renderItem={renderItem(scrollYMin)}
+                  keyExtractor={(_, i) => `m-${i}`}
+                  showsVerticalScrollIndicator={false}
+                  snapToInterval={ITEM_HEIGHT}
+                  snapToAlignment="center"
+                  decelerationRate="fast"
+                  onMomentumScrollEnd={(e) => {
                     const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
                     if (MINUTES[index]) setCurrentMin(MINUTES[index]);
-                  }
-                }
-              })}
-              scrollEventThrottle={16}
-              contentContainerStyle={{ 
-                paddingVertical: ITEM_HEIGHT * 2,
-              }}
-              style={Platform.OS === 'web' ? { scrollSnapType: 'y mandatory' } as any : {}}
-            />
-          </View>
+                  }}
+                  onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYMin } } }], { useNativeDriver: true })}
+                  contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
+                />
+              </View>
+            </>
+          )}
         </View>
       </View>
     </Modal>
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
   },
   selectionFrame: {
     position: 'absolute',
@@ -208,7 +207,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,103,0,0.05)',
   },
   wheelBox: { flex: 1, height: '100%' },
+  webWrapper: { flexDirection: 'row', flex: 1, height: '100%' },
+  webWheelBox: { flex: 1, height: '100%' },
+  webWheelTitle: { fontSize: 12, color: Colors.txt2, textAlign: 'center', marginVertical: 5, fontWeight: '600' },
   itemContainer: { height: ITEM_HEIGHT, alignItems: 'center', justifyContent: 'center' },
-  itemText: { fontSize: 22, color: Colors.txt, fontWeight: '600' },
-  colon: { fontSize: 22, fontWeight: '700', color: Colors.txt, marginHorizontal: 10 },
+  webItem: {
+    height: ITEM_HEIGHT,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#f0f0f0',
+  },
+  itemText: { fontSize: 20, color: Colors.txt, fontWeight: '600' },
+  colon: { fontSize: 22, fontWeight: '700', color: Colors.txt, marginHorizontal: 10, alignSelf: 'center' },
 });

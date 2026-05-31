@@ -24,21 +24,22 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
   const scrollY = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef<FlatList>(null);
   
-  // İlk açılışta mevcut değere odaklan
   useEffect(() => {
     if (visible) {
       setCurrentVal(value);
-      const index = options.indexOf(value);
-      if (index !== -1) {
-        setTimeout(() => {
-          flatListRef.current?.scrollToOffset({
-            offset: index * ITEM_HEIGHT,
-            animated: false
-          });
-        }, 50);
+      if (Platform.OS !== 'web') {
+        const index = options.indexOf(value);
+        if (index !== -1) {
+          setTimeout(() => {
+            flatListRef.current?.scrollToOffset({
+              offset: index * ITEM_HEIGHT,
+              animated: false
+            });
+          }, 50);
+        }
       }
     }
-  }, [visible]);
+  }, [visible, value, options]);
 
   const updateVal = (y: number) => {
     const index = Math.round(y / ITEM_HEIGHT);
@@ -74,11 +75,32 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
     });
 
     return (
-      <View style={[styles.itemContainer, Platform.OS === 'web' && { scrollSnapAlign: 'center' } as any]}>
+      <View style={styles.itemContainer}>
         <Animated.Text style={[styles.itemText, { opacity, transform: [{ scale }] }]}>
           {item}{unit ? ` ${unit}` : ''}
         </Animated.Text>
       </View>
+    );
+  };
+
+  const renderWebItem = (item: any, index: number) => {
+    const isSelected = item === currentVal;
+    return (
+      <TouchableOpacity
+        key={index}
+        style={[
+          styles.webItem,
+          isSelected && { backgroundColor: 'rgba(255,103,0,0.1)' }
+        ]}
+        onPress={() => setCurrentVal(item)}
+      >
+        <Text style={[
+          styles.itemText,
+          isSelected && { color: Colors.orange, fontWeight: '700' }
+        ]}>
+          {item}{unit ? ` ${unit}` : ''}
+        </Text>
+      </TouchableOpacity>
     );
   };
 
@@ -93,38 +115,37 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
           </TouchableOpacity>
         </View>
 
-        <View style={styles.pickerContainer}>
-          {/* Seçim Çerçevesi */}
-          <View style={styles.selectionFrame} pointerEvents="none" />
-          
-          <Animated.FlatList
-            ref={flatListRef}
-            data={options}
-            renderItem={renderItem}
-            keyExtractor={(_, i) => String(i)}
-            showsVerticalScrollIndicator={false}
-            snapToInterval={ITEM_HEIGHT}
-            snapToAlignment="center"
-            decelerationRate={Platform.OS === 'web' ? 0.9 : "fast"}
-            onMomentumScrollEnd={(e) => updateVal(e.nativeEvent.contentOffset.y)}
-            onScrollEndDrag={(e) => {
-              if (Platform.OS === 'web') updateVal(e.nativeEvent.contentOffset.y);
-            }}
-            contentContainerStyle={{
-              paddingVertical: ITEM_HEIGHT * 2
-            }}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-              { 
-                useNativeDriver: Platform.OS !== 'web',
-                listener: (e: any) => {
-                  if (Platform.OS === 'web') updateVal(e.nativeEvent.contentOffset.y);
-                }
-              }
-            )}
-            scrollEventThrottle={16}
-            style={Platform.OS === 'web' ? { scrollSnapType: 'y mandatory' } as any : {}}
-          />
+        <View style={[styles.pickerContainer, Platform.OS === 'web' && { height: 300 }]}>
+          {Platform.OS === 'web' ? (
+            <FlatList
+              data={options}
+              renderItem={({ item, index }) => renderWebItem(item, index)}
+              keyExtractor={(_, i) => String(i)}
+              showsVerticalScrollIndicator={true}
+              contentContainerStyle={{ paddingVertical: 10 }}
+            />
+          ) : (
+            <>
+              <View style={styles.selectionFrame} pointerEvents="none" />
+              <Animated.FlatList
+                ref={flatListRef}
+                data={options}
+                renderItem={renderItem}
+                keyExtractor={(_, i) => String(i)}
+                showsVerticalScrollIndicator={false}
+                snapToInterval={ITEM_HEIGHT}
+                snapToAlignment="center"
+                decelerationRate="fast"
+                onMomentumScrollEnd={(e) => updateVal(e.nativeEvent.contentOffset.y)}
+                contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
+                onScroll={Animated.event(
+                  [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                  { useNativeDriver: true }
+                )}
+                scrollEventThrottle={16}
+              />
+            </>
+          )}
         </View>
       </View>
     </Modal>
@@ -169,6 +190,14 @@ const styles = StyleSheet.create({
     width: width,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  webItem: {
+    height: ITEM_HEIGHT,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#f0f0f0',
   },
   itemText: {
     fontSize: 20,
