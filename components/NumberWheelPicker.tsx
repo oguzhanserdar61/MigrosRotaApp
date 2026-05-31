@@ -74,7 +74,7 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
     });
 
     return (
-      <View style={styles.itemContainer}>
+      <View style={[styles.itemContainer, Platform.OS === 'web' && { scrollSnapAlign: 'center' } as any]}>
         <Animated.Text style={[styles.itemText, { opacity, transform: [{ scale }] }]}>
           {item}{unit ? ` ${unit}` : ''}
         </Animated.Text>
@@ -104,7 +104,8 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
             keyExtractor={(_, i) => String(i)}
             showsVerticalScrollIndicator={false}
             snapToInterval={ITEM_HEIGHT}
-            decelerationRate="fast"
+            snapToAlignment="center"
+            decelerationRate={Platform.OS === 'web' ? 0.9 : "fast"}
             onMomentumScrollEnd={(e) => updateVal(e.nativeEvent.contentOffset.y)}
             onScrollEndDrag={(e) => {
               if (Platform.OS === 'web') updateVal(e.nativeEvent.contentOffset.y);
@@ -122,6 +123,7 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
               }
             )}
             scrollEventThrottle={16}
+            style={Platform.OS === 'web' ? { scrollSnapType: 'y mandatory' } as any : {}}
           />
         </View>
       </View>

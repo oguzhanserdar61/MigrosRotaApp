@@ -69,7 +69,7 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
     });
 
     return (
-      <View style={styles.itemContainer}>
+      <View style={[styles.itemContainer, Platform.OS === 'web' && { scrollSnapAlign: 'center' } as any]}>
         <Animated.Text style={[styles.itemText, { opacity, transform: [{ scale }] }]}>
           {item}
         </Animated.Text>
@@ -99,7 +99,8 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
               keyExtractor={(_, i) => `h-${i}`}
               showsVerticalScrollIndicator={false}
               snapToInterval={ITEM_HEIGHT}
-              decelerationRate="fast"
+              snapToAlignment="center"
+              decelerationRate={Platform.OS === 'web' ? 0.9 : "fast"}
               onMomentumScrollEnd={(e) => {
                 const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
                 if (HOURS[index]) setCurrentHour(HOURS[index]);
@@ -120,7 +121,10 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
                 }
               })}
               scrollEventThrottle={16}
-              contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
+              contentContainerStyle={{ 
+                paddingVertical: ITEM_HEIGHT * 2,
+              }}
+              style={Platform.OS === 'web' ? { scrollSnapType: 'y mandatory' } as any : {}}
             />
           </View>
 
@@ -134,7 +138,8 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
               keyExtractor={(_, i) => `m-${i}`}
               showsVerticalScrollIndicator={false}
               snapToInterval={ITEM_HEIGHT}
-              decelerationRate="fast"
+              snapToAlignment="center"
+              decelerationRate={Platform.OS === 'web' ? 0.9 : "fast"}
               onMomentumScrollEnd={(e) => {
                 const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
                 if (MINUTES[index]) setCurrentMin(MINUTES[index]);
@@ -155,7 +160,10 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
                 }
               })}
               scrollEventThrottle={16}
-              contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
+              contentContainerStyle={{ 
+                paddingVertical: ITEM_HEIGHT * 2,
+              }}
+              style={Platform.OS === 'web' ? { scrollSnapType: 'y mandatory' } as any : {}}
             />
           </View>
         </View>
