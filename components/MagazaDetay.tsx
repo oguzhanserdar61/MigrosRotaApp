@@ -61,6 +61,20 @@ export function MagazaDetay({ row, onClose }: Props) {
       return;
     }
 
+    const { tur, startPoint, endPoint } = useRotaStore.getState();
+    const currentStoreCount = secili.length;
+    const startCount = startPoint ? 1 : 0;
+    const endCount = endPoint ? 1 : 0;
+    const totalCountInRoute = currentStoreCount + startCount + endCount;
+
+    if (!isSelected && totalCountInRoute >= tur.hedefMagaza) {
+      Alert.alert(
+        'Sınır Aşıldı',
+        `Hedef Mağaza sayısına (${tur.hedefMagaza}) ulaşıldı. Yeni mağaza eklemek için Ayarlar sayfasından hedef mağaza sayısını artırmalısınız.`
+      );
+      return;
+    }
+
     toggleSecim(store);
     onClose();
   }
