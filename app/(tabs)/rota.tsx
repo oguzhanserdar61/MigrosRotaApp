@@ -191,9 +191,22 @@ export default function RotaScreen() {
 
     return {
       total: fmt(totalMins),
-      travel: fmt(travelMins)
+      travel: fmt(travelMins),
+      totalMins
     };
   }, [duraklar, tur, travelMins]);
+
+  // Maksimum süre kontrolü
+  React.useEffect(() => {
+    if (optimizeEdildi && stats.totalMins > tur.maksSaat * 60) {
+      const msg = `Dikkat: Toplam rota süresi (${stats.total}) ayarlarda belirlediğiniz maksimum süreyi (${tur.maksSaat} saat) aşıyor.`;
+      if (Platform.OS === 'web') {
+        alert(`Süre Sınırı Aşıldı\n\n${msg}`);
+      } else {
+        Alert.alert('Süre Sınırı Aşıldı', msg);
+      }
+    }
+  }, [optimizeEdildi, stats.totalMins, tur.maksSaat, stats.total]);
 
 
   function haritadaGoster() {
