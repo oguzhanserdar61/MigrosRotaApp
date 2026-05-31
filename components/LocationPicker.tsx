@@ -7,6 +7,7 @@ import {
 import { Colors } from '../constants/theme';
 import { searchStores } from '../utils/magazaData';
 import { pressHandlers } from '../utils/webPress';
+import { useRotaStore } from '../store/rotaStore';
 
 interface LocationItem {
   lat: number;
