@@ -102,10 +102,25 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
               decelerationRate="fast"
               onMomentumScrollEnd={(e) => {
                 const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-                setCurrentHour(HOURS[index]);
+                if (HOURS[index]) setCurrentHour(HOURS[index]);
               }}
+              onScrollEndDrag={(e) => {
+                if (Platform.OS === 'web') {
+                  const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
+                  if (HOURS[index]) setCurrentHour(HOURS[index]);
+                }
+              }}
+              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYHour } } }], { 
+                useNativeDriver: Platform.OS !== 'web',
+                listener: (e: any) => {
+                  if (Platform.OS === 'web') {
+                    const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
+                    if (HOURS[index]) setCurrentHour(HOURS[index]);
+                  }
+                }
+              })}
+              scrollEventThrottle={16}
               contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
-              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYHour } } }], { useNativeDriver: true })}
             />
           </View>
 
@@ -122,10 +137,25 @@ export function TimeWheelPicker({ visible, value, onClose, onSelect }: Props) {
               decelerationRate="fast"
               onMomentumScrollEnd={(e) => {
                 const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-                setCurrentMin(MINUTES[index]);
+                if (MINUTES[index]) setCurrentMin(MINUTES[index]);
               }}
+              onScrollEndDrag={(e) => {
+                if (Platform.OS === 'web') {
+                  const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
+                  if (MINUTES[index]) setCurrentMin(MINUTES[index]);
+                }
+              }}
+              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYMin } } }], { 
+                useNativeDriver: Platform.OS !== 'web',
+                listener: (e: any) => {
+                  if (Platform.OS === 'web') {
+                    const index = Math.round(e.nativeEvent.contentOffset.y / ITEM_HEIGHT);
+                    if (MINUTES[index]) setCurrentMin(MINUTES[index]);
+                  }
+                }
+              })}
+              scrollEventThrottle={16}
               contentContainerStyle={{ paddingVertical: ITEM_HEIGHT * 2 }}
-              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollYMin } } }], { useNativeDriver: true })}
             />
           </View>
         </View>

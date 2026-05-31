@@ -20,12 +20,14 @@ interface Props {
 }
 
 export function NumberWheelPicker({ visible, title, value, options, onClose, onSelect, unit }: Props) {
+  const [currentVal, setCurrentVal] = useState(value);
   const scrollY = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef<FlatList>(null);
   
   // İlk açılışta mevcut değere odaklan
   useEffect(() => {
     if (visible) {
+      setCurrentVal(value);
       const index = options.indexOf(value);
       if (index !== -1) {
         setTimeout(() => {
@@ -38,12 +40,16 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
     }
   }, [visible]);
 
-  const onMomentumScrollEnd = (e: any) => {
-    const y = e.nativeEvent.contentOffset.y;
+  const updateVal = (y: number) => {
     const index = Math.round(y / ITEM_HEIGHT);
     if (options[index] !== undefined) {
-      onSelect(options[index]);
+      setCurrentVal(options[index]);
     }
+  };
+
+  const handleDone = () => {
+    onSelect(currentVal);
+    onClose();
   };
 
   const renderItem = ({ item, index }: { item: any; index: number }) => {
@@ -82,7 +88,7 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
       <View style={styles.sheet}>
         <View style={styles.header}>
           <Text style={styles.title}>{title}</Text>
-          <TouchableOpacity onPress={onClose}>
+          <TouchableOpacity onPress={handleDone}>
             <Text style={styles.doneBtn}>Tamam</Text>
           </TouchableOpacity>
         </View>
@@ -99,13 +105,21 @@ export function NumberWheelPicker({ visible, title, value, options, onClose, onS
             showsVerticalScrollIndicator={false}
             snapToInterval={ITEM_HEIGHT}
             decelerationRate="fast"
-            onMomentumScrollEnd={onMomentumScrollEnd}
+            onMomentumScrollEnd={(e) => updateVal(e.nativeEvent.contentOffset.y)}
+            onScrollEndDrag={(e) => {
+              if (Platform.OS === 'web') updateVal(e.nativeEvent.contentOffset.y);
+            }}
             contentContainerStyle={{
               paddingVertical: ITEM_HEIGHT * 2
             }}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-              { useNativeDriver: true }
+              { 
+                useNativeDriver: Platform.OS !== 'web',
+                listener: (e: any) => {
+                  if (Platform.OS === 'web') updateVal(e.nativeEvent.contentOffset.y);
+                }
+              }
             )}
             scrollEventThrottle={16}
           />
