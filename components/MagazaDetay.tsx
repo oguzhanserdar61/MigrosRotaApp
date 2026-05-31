@@ -68,10 +68,12 @@ export function MagazaDetay({ row, onClose }: Props) {
     const totalCountInRoute = currentStoreCount + startCount + endCount;
 
     if (!isSelected && totalCountInRoute >= tur.hedefMagaza) {
-      Alert.alert(
-        'Sınır Aşıldı',
-        `Hedef Mağaza sayısına (${tur.hedefMagaza}) ulaşıldı. Yeni mağaza eklemek için Ayarlar sayfasından hedef mağaza sayısını artırmalısınız.`
-      );
+      const msg = `Hedef Mağaza sayısına (${tur.hedefMagaza}) ulaşıldı. Yeni mağaza eklemek için Ayarlar sayfasından hedef mağaza sayısını artırmalısınız.`;
+      if (Platform.OS === 'web') {
+        alert(`Sınır Aşıldı\n\n${msg}`);
+      } else {
+        Alert.alert('Sınır Aşıldı', msg);
+      }
       return;
     }
 
