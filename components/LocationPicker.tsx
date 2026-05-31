@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   View, Text, TextInput, Pressable, FlatList,
   StyleSheet, Modal, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator,
-  Animated, PanResponder,
+  Animated, PanResponder, Alert,
 } from 'react-native';
 import { Colors } from '../constants/theme';
 import { searchStores } from '../utils/magazaData';
