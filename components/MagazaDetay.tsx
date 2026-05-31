@@ -55,10 +55,6 @@ export function MagazaDetay({ row, onClose }: Props) {
     );
   }
 
-  function aramaYap() {
-    if (telefon) Linking.openURL(`tel:0${telefon.slice(3)}`);
-  }
-
   function rotaSeciminiDegistir() {
     if (!validCoords && !isSelected) {
       Alert.alert('Koordinat eksik', 'Koordinatı olmayan mağazalar rotaya eklenemez.');
@@ -106,12 +102,6 @@ export function MagazaDetay({ row, onClose }: Props) {
             <Text style={styles.rowKey}>Adres</Text>
             <Text style={styles.rowVal} numberOfLines={3}>{adres}</Text>
           </View>
-          {telefon ? (
-            <Pressable style={styles.row} {...pressHandlers(aramaYap)}>
-              <Text style={styles.rowKey}>Telefon</Text>
-              <Text style={[styles.rowVal, styles.link]}>0{telefon.slice(3)}</Text>
-            </Pressable>
-          ) : null}
           <View style={styles.row}>
             <Text style={styles.rowKey}>Koordinat</Text>
             <Text style={styles.rowVal}>{validCoords ? `${lat.toFixed(4)}, ${lng.toFixed(4)}` : '-'}</Text>

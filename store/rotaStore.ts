@@ -7,6 +7,8 @@ export interface LocationPoint {
   lat: number;
   lng: number;
   label: string;
+  il?: string;
+  ilce?: string;
 }
 
 export interface TurParametreleri {

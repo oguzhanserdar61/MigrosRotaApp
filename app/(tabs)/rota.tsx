@@ -43,22 +43,60 @@ export default function RotaScreen() {
     secili, startPoint, endPoint, tur,
     optimizeEdildi, toplamKm,
     rotayiOlustur, rotayiSifirla, secimTemizle,
+    toggleSecim,
   } = useRotaStore();
 
-  // Zaman çizelgesi hesapla
-  const duraklar = useMemo(() => {
+  const { duraklar, travelMins } = useMemo(() => {
     const [sh, sm] = tur.baslangicSaati.split(':').map(Number);
-    let mins = sh * 60 + sm;
+    let currentMins = sh * 60 + sm;
+    let totalTravelMins = 0;
     
     const results: any[] = [];
+    const uniqueIller = new Set(secili.map(s => s[5]));
+    const ilCount = uniqueIller.size;
+
+    const getSegmentMins = (s1: any, s2: any, dist: number) => {
+      const r1 = s1?.row;
+      const r2 = s2?.row;
+
+      // İl/İlçe bilgilerini al (Eğer row varsa oradan, yoksa s1/s2'den - startPoint/endPoint durumu)
+      const il1 = r1 ? r1[5] : s1?.il;
+      const ilce1 = r1 ? r1[7] : s1?.ilce;
+      const il2 = r2 ? r2[5] : s2?.il;
+      const ilce2 = r2 ? r2[7] : s2?.ilce;
+
+      // Eğer il bilgisi hiç yoksa (serbest adres) sabit bir hız (40 km/s) kullan
+      if (!il1 || !il2) return dist * 1.5;
+
+      if (il1 === il2) {
+        if (ilce1 === ilce2) {
+          // Aynı ilçe: 15 km/s (4.0 dk/km)
+          return dist * 4.0;
+        } else {
+          // Aynı il farklı ilçe: İlk ve son 2'şer km 15 km/s, geri kalan 22 km/s (2.73 dk/km)
+          const slowDist = Math.min(dist, 4);
+          const fastDist = Math.max(0, dist - 4);
+          return (slowDist * 4.0) + (fastDist * 2.73);
+        }
+      } else {
+        // Farklı il
+        const fastMult = ilCount >= 3 ? 0.6 : 1.0; // 100 km/s veya 60 km/s
+        // Şehirler arası: İlk ve son 5'er km şehir içi hızı (22 km/s), geri kalan ana yol hızı
+        const urbanDist = Math.min(dist, 10);
+        const highwayDist = Math.max(0, dist - 10);
+        return (urbanDist * 2.73) + (highwayDist * fastMult);
+      }
+    };
 
     // Başlangıç noktası varsa ilk durak odur
     if (startPoint) {
       results.push({
         isPoint: true,
         label: startPoint.label,
-        arr: fmtTime(mins),
-        dep: fmtTime(mins),
+        il: startPoint.il,
+        ilce: startPoint.ilce,
+        arr: fmtTime(currentMins),
+        dep: fmtTime(currentMins),
         lat: startPoint.lat,
         lng: startPoint.lng,
         type: 'start'
@@ -66,74 +104,97 @@ export default function RotaScreen() {
     }
 
     secili.forEach((row, i) => {
-      let prevLat, prevLng;
+      let prevLat, prevLng, prevDurak;
       if (i === 0) {
         if (startPoint) {
+          prevDurak = results[0];
           prevLat = startPoint.lat;
           prevLng = startPoint.lng;
         } else {
           // Başlangıç noktası yoksa ilk mağaza saati baz alınır
           results.push({
             row,
-            arr: fmtTime(mins),
-            dep: fmtTime(mins + tur.magazaBasiDakika)
+            arr: fmtTime(currentMins),
+            dep: fmtTime(currentMins + tur.magazaBasiDakika)
           });
-          mins += tur.magazaBasiDakika;
+          currentMins += tur.magazaBasiDakika;
           return;
         }
       } else {
+        prevDurak = results[results.length - 1];
         prevLat = secili[i-1][1];
         prevLng = secili[i-1][2];
       }
 
       // Yol süresi
       const dist = haversine(prevLat!, prevLng!, row[1], row[2]);
-      mins += Math.round(dist * 2.5); 
+      const travel = Math.round(getSegmentMins(prevDurak, { row }, dist));
+      totalTravelMins += travel;
+      currentMins += travel; 
       
-      const arr = fmtTime(mins);
-      mins += tur.magazaBasiDakika;
-      const dep = fmtTime(mins);
+      const arr = fmtTime(currentMins);
+      currentMins += tur.magazaBasiDakika;
+      const dep = fmtTime(currentMins);
       
       results.push({ row, arr, dep });
     });
 
     // Bitiş noktası varsa ekle
     if (endPoint && (secili.length > 0 || startPoint)) {
-      let prevLat, prevLng;
+      let prevLat, prevLng, prevDurak;
       if (secili.length > 0) {
+        prevDurak = results[results.length - 1];
         const last = secili[secili.length - 1];
         prevLat = last[1];
         prevLng = last[2];
       } else {
+        prevDurak = results[0];
         prevLat = startPoint!.lat;
         prevLng = startPoint!.lng;
       }
       
       const dist = haversine(prevLat, prevLng, endPoint.lat, endPoint.lng);
-      mins += Math.round(dist * 2.5);
+      const travel = Math.round(getSegmentMins(prevDurak, { isPoint: true }, dist));
+      totalTravelMins += travel;
+      currentMins += travel;
+
       results.push({
         isPoint: true,
         label: endPoint.label,
-        arr: fmtTime(mins),
-        dep: fmtTime(mins),
+        arr: fmtTime(currentMins),
+        dep: fmtTime(currentMins),
         lat: endPoint.lat,
         lng: endPoint.lng,
         type: 'end'
       });
     }
 
-    return results;
+    return { duraklar: results, travelMins: totalTravelMins };
   }, [secili, tur, startPoint, endPoint]);
 
-  const toplamSure = useMemo(() => {
-    if (!duraklar.length) return 0;
+  const stats = useMemo(() => {
+    if (!duraklar.length) return { total: '0 dk', travel: '0 dk' };
+    
     const [sh, sm] = tur.baslangicSaati.split(':').map(Number);
     const startMins = sh * 60 + sm;
     const last = duraklar[duraklar.length - 1];
     const [lh, lm] = last.dep.split(':').map(Number);
     const endMins = lh * 60 + lm;
-    return Math.round((endMins - startMins) / 6) / 10;
-  }, [duraklar, tur]);
+    const totalMins = endMins - startMins;
+
+    const fmt = (m: number) => {
+      const hours = Math.floor(m / 60);
+      const mins = m % 60;
+      if (hours === 0) return `${mins} dakika`;
+      return `${hours} saat ${mins} dakika`;
+    };
+
+    return {
+      total: fmt(totalMins),
+      travel: fmt(travelMins)
+    };
+  }, [duraklar, tur, travelMins]);
+
 
   function haritadaGoster() {
     const coords: string[] = [];
@@ -144,20 +205,20 @@ export default function RotaScreen() {
     if (coords.length < 2) return;
 
     const origin = coords[0];
-    const dest = coords[coords.length - 1];
+    const destination = coords[coords.length - 1];
     const waypoints = coords.slice(1, -1);
 
     const openGoogle = () => {
       let url = `https://www.google.com/maps/dir/${encodeURIComponent(origin)}`;
       waypoints.forEach(w => { url += `/${encodeURIComponent(w)}`; });
-      url += `/${encodeURIComponent(dest)}`;
+      url += `/${encodeURIComponent(destination)}`;
       openExternalUrl(url);
     };
 
     const openApple = () => {
       // Apple Maps multi-stop: saddr=origin&daddr=wp1+to:wp2+to:dest
       const daddrParts = waypoints.map(w => encodeURIComponent(w));
-      daddrParts.push(encodeURIComponent(dest));
+      daddrParts.push(encodeURIComponent(destination));
       const url = `http://maps.apple.com/?saddr=${encodeURIComponent(origin)}&daddr=${daddrParts.join('+to:')}&dirflg=d`;
       openExternalUrl(url);
     };
@@ -200,11 +261,12 @@ export default function RotaScreen() {
         <View style={styles.statsGrid}>
           <StatKart label="Seçili" value={String(secili.length)} unit="mağaza" />
           <StatKart label="Mesafe" value={String(toplamKm)} unit="km" />
-          <StatKart label="Süre" value={String(toplamSure)} unit="saat" />
           <StatKart
             label="Bitiş"
             value={duraklar.length > 0 ? duraklar[duraklar.length - 1].dep : '--:--'}
           />
+          <StatKart label="Toplam Süre" value={stats.total} />
+          <StatKart label="Yolda Geçen" value={stats.travel} />
         </View>
 
         {/* Rota oluştur butonu */}
@@ -281,9 +343,19 @@ export default function RotaScreen() {
                       <Text style={styles.durakIsim} numberOfLines={1}>{isim}</Text>
                       <Text style={styles.durakAdres} numberOfLines={1}>{adres}</Text>
                     </View>
-                    <View style={styles.durakZaman}>
-                      <Text style={styles.durakArr}>{arr}</Text>
-                      <Text style={styles.durakDep}>çıkış {dep}</Text>
+                    <View style={styles.durakRight}>
+                      <View style={styles.durakZaman}>
+                        <Text style={styles.durakArr}>{arr}</Text>
+                        <Text style={styles.durakDep}>çıkış {dep}</Text>
+                      </View>
+                      {!optimizeEdildi && (
+                        <Pressable 
+                          style={styles.btnRemove} 
+                          {...pressHandlers(() => toggleSecim(row))}
+                        >
+                          <Text style={styles.btnRemoveText}>✕</Text>
+                        </Pressable>
+                      )}
                     </View>
                   </View>
 
@@ -337,12 +409,14 @@ const styles = StyleSheet.create({
   emptyHint: { fontSize: 13, color: Colors.txt3 },
   statsGrid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 8,
     padding: 12,
     backgroundColor: Colors.bg,
   },
   statKart: {
     flex: 1,
+    minWidth: '30%',
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 10,
@@ -351,7 +425,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
   },
   statLabel: { fontSize: 10, color: Colors.txt3, marginBottom: 3 },
-  statVal: { fontSize: 18, fontWeight: '700', color: Colors.txt },
+  statVal: { fontSize: 14, fontWeight: '700', color: Colors.txt, textAlign: 'center' },
   statUnit: { fontSize: 10, fontWeight: '400', color: Colors.txt2 },
   section: {
     backgroundColor: 'white',
@@ -417,11 +491,20 @@ const styles = StyleSheet.create({
   durakContent: { flex: 1, paddingBottom: 8 },
   durakHeader: { flexDirection: 'row', alignItems: 'flex-start', gap: 8 },
   durakInfo: { flex: 1 },
+  durakRight: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   durakIsim: { fontSize: 13, fontWeight: '600', color: Colors.txt },
   durakAdres: { fontSize: 11, color: Colors.txt2, marginTop: 1 },
   durakZaman: { alignItems: 'flex-end' },
   durakArr: { fontSize: 13, fontWeight: '700', color: Colors.orange },
   durakDep: { fontSize: 10, color: Colors.txt3 },
+  btnRemove: {
+    padding: 6,
+    backgroundColor: '#FFF1F0',
+    borderRadius: 6,
+    borderWidth: 0.5,
+    borderColor: '#FFAAAA',
+  },
+  btnRemoveText: { color: '#C00', fontSize: 10, fontWeight: '700' },
   araKm: { fontSize: 11, color: Colors.txt3, marginTop: 4, marginLeft: 32 },
   pointIcon: {
     width: 24,

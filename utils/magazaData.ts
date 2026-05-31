@@ -4233,6 +4233,19 @@ export const DB: Record<string, StoreRow[]> = {
   ]
 };
 
+export function getAvailableBrands(il: string, ilce?: string): string[] {
+  const stores = DB[il] || [];
+  const brands = new Set<string>();
+  for (const store of stores) {
+    const storeIlce = store[7];
+    const brandCode = store[6];
+    if (!ilce || storeIlce === ilce) {
+      if (brandCode) brands.add(brandCode.toLowerCase());
+    }
+  }
+  return Array.from(brands);
+}
+
 const trCollator = new Intl.Collator('tr');
 
 export function getIller(): string[] {
@@ -4283,3 +4296,10 @@ export function searchStores(query: string): StoreRow[] {
   });
   return results.slice(0, 20);
 }
+
+// Her mağaza satırına il bilgisini (DB key) enjekte et (Performans ve doğru hız hesabı için)
+Object.entries(DB).forEach(([ilAd, list]) => {
+  list.forEach(row => {
+    row[5] = ilAd;
+  });
+});

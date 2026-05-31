@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { BrandColors } from '../constants/theme';
+import { getAvailableBrands } from '../utils/magazaData';
 
 interface FilterStore {
   il: string;
@@ -14,16 +15,24 @@ interface FilterStore {
   sifirla: () => void;
 }
 
-const defaultBrands = new Set(Object.keys(BrandColors));
+const defaultIl = 'İSTANBUL';
+const defaultAvailable = new Set(getAvailableBrands(defaultIl));
 
-export const useFilterStore = create<FilterStore>((set) => ({
-  il: 'İSTANBUL',
+export const useFilterStore = create<FilterStore>((set, get) => ({
+  il: defaultIl,
   ilce: '',
   search: '',
-  activeBrands: defaultBrands,
+  activeBrands: defaultAvailable,
 
-  ilAyarla: (il) => set({ il, ilce: '', search: '' }),
-  ilceAyarla: (ilce) => set({ ilce }),
+  ilAyarla: (il) => {
+    const available = getAvailableBrands(il, '');
+    set({ il, ilce: '', search: '', activeBrands: new Set(available) });
+  },
+  ilceAyarla: (ilce) => {
+    const { il } = get();
+    const available = getAvailableBrands(il, ilce);
+    set({ ilce, activeBrands: new Set(available) });
+  },
   searchAyarla: (search) => set({ search }),
 
   brandToggle: (brand) => set(s => {
@@ -33,10 +42,13 @@ export const useFilterStore = create<FilterStore>((set) => ({
     return { activeBrands: next };
   }),
 
-  sifirla: () => set({
-    il: 'İSTANBUL',
-    ilce: '',
-    search: '',
-    activeBrands: new Set(Object.keys(BrandColors)),
-  }),
+  sifirla: () => {
+    const available = getAvailableBrands(defaultIl, '');
+    set({
+      il: defaultIl,
+      ilce: '',
+      search: '',
+      activeBrands: new Set(available),
+    });
+  },
 }));

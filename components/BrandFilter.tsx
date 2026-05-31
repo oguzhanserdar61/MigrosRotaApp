@@ -1,16 +1,25 @@
-import React from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { BrandColors } from '../constants/theme';
 import { useFilterStore } from '../store/filterStore';
 import { pressHandlers } from '../utils/webPress';
+import { getAvailableBrands } from '../utils/magazaData';
 
 export function BrandFilter() {
-  const { activeBrands, brandToggle } = useFilterStore();
+  const { il, ilce, activeBrands, brandToggle } = useFilterStore();
+
+  const availableKeys = useMemo(() => {
+    const available = getAvailableBrands(il, ilce);
+    return Object.keys(BrandColors).filter(key => available.includes(key));
+  }, [il, ilce]);
+
+  if (availableKeys.length === 0) return null;
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
       <View style={styles.row}>
-        {Object.entries(BrandColors).map(([key, brand]) => {
+        {availableKeys.map((key) => {
+          const brand = (BrandColors as any)[key];
           const on = activeBrands.has(key);
           return (
             <Pressable

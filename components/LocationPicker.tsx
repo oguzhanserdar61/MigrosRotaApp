@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   View, Text, TextInput, Pressable, FlatList,
-  StyleSheet, Modal, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator
+  StyleSheet, Modal, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator,
+  Animated, PanResponder,
 } from 'react-native';
 import { Colors } from '../constants/theme';
 import { searchStores } from '../utils/magazaData';
@@ -13,11 +14,13 @@ interface LocationItem {
   label: string;
   sub?: string;
   isStore?: boolean;
+  il?: string;
+  ilce?: string;
 }
 
 interface Props {
   label: string;
-  value: { label: string } | null;
+  value: { label: string; il?: string; ilce?: string } | null;
   placeholder: string;
   onSelect: (item: LocationItem | null) => void;
 }
@@ -38,6 +41,51 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
     }
   }, [open]);
 
+  const translateY = useRef(new Animated.Value(0)).current;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (_, gs) => gs.dy > 5,
+      onPanResponderMove: (_, gs) => {
+        if (gs.dy > 0) translateY.setValue(gs.dy);
+      },
+      onPanResponderRelease: (_, gs) => {
+        if (gs.dy > 120 || gs.vy > 0.5) {
+          closeModal();
+        } else {
+          Animated.spring(translateY, {
+            toValue: 0,
+            useNativeDriver: true,
+            bounciness: 4,
+          }).start();
+        }
+      },
+    })
+  ).current;
+
+  useEffect(() => {
+    if (open) {
+      translateY.setValue(400); // Başlangıçta aşağıda
+      Animated.spring(translateY, {
+        toValue: 0,
+        useNativeDriver: true,
+        damping: 25,
+        stiffness: 200,
+      }).start();
+    }
+  }, [open]);
+
+  const closeModal = () => {
+    Animated.timing(translateY, {
+      toValue: 600,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => {
+      setOpen(false);
+    });
+  };
+
   async function search(q: string) {
     setQuery(q);
     if (timer.current) clearTimeout(timer.current);
@@ -48,34 +96,39 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
     }
 
     timer.current = setTimeout(async () => {
-      setLoading(true);
-      try {
-        // 1. Mağazalarda ara (Senkron)
-        const stores = searchStores(q).map(s => ({
-          lat: s[1],
-          lng: s[2],
-          label: s[4],
-          sub: s[3],
-          isStore: true,
-        }));
+    setLoading(true);
+    try {
+      // 1. Mağazalarda ara
+      const stores: LocationItem[] = searchStores(q).map(s => ({
+        lat: s[1],
+        lng: s[2],
+        label: s[4],
+        sub: s[3],
+        isStore: true,
+        il: s[5],
+        ilce: s[7],
+      }));
 
-        // 2. Photon API (OpenStreetMap)
-        const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=tr&bbox=25.6,35.8,44.8,42.1`);
-        const data = await res.json();
-        const locations = (data.features || []).map((f: any) => {
-          const p = f.properties;
-          const [lng, lat] = f.geometry.coordinates;
-          return {
-            lat,
-            lng,
-            label: [p.name, p.street, p.housenumber].filter(Boolean).join(' '),
-            sub: [p.district || p.city || p.county, p.state || 'Türkiye'].filter(Boolean).join(', '),
-            isStore: false,
-          };
-        });
+      // 2. Photon API (OpenStreetMap)
+      const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=tr&bbox=25.6,35.8,44.8,42.1`);
+      const data = await res.json();
+      const locations: LocationItem[] = (data.features || []).map((f: any) => {
+        const p = f.properties;
+        const [lng, lat] = f.geometry.coordinates;
+        return {
+          lat,
+          lng,
+          label: [p.name, p.street, p.housenumber].filter(Boolean).join(' '),
+          sub: [p.district || p.city || p.county, p.state || 'Türkiye'].filter(Boolean).join(', '),
+          isStore: false,
+          il: (p.state || p.city || '').toUpperCase(),
+          ilce: (p.district || p.county || '').toUpperCase(),
+        };
+      });
 
-        setResults([...stores, ...locations]);
-      } catch (e) {
+      setResults([...stores, ...locations]);
+    } catch (e) {
+
         console.error('Search error:', e);
       } finally {
         setLoading(false);
@@ -112,26 +165,36 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
         visible={open} 
         transparent 
         animationType="fade" 
-        onRequestClose={() => setOpen(false)}
+        onRequestClose={closeModal}
         statusBarTranslucent
       >
         <View style={styles.modalOverlay}>
           <TouchableOpacity 
             style={styles.backdrop} 
             activeOpacity={1} 
-            onPress={() => setOpen(false)} 
+            onPress={closeModal} 
           />
           
           <KeyboardAvoidingView 
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
             style={styles.modalContent}
           >
-            <View style={styles.sheet}>
-              <View style={styles.sheetHeader}>
-                <Text style={styles.sheetTitle}>{label} Seç</Text>
-                <TouchableOpacity onPress={() => setOpen(false)} hitSlop={15}>
-                  <Text style={styles.closeBtn}>✕</Text>
-                </TouchableOpacity>
+            <Animated.View 
+              style={[
+                styles.sheet,
+                { transform: [{ translateY }] }
+              ]}
+            >
+              <View {...panResponder.panHandlers} style={styles.dragArea}>
+                <View style={styles.handle} />
+                <View style={styles.sheetHeader}>
+                  <Text style={styles.sheetTitle}>{label} Seç</Text>
+                  <TouchableOpacity onPress={closeModal} hitSlop={20}>
+                    <View style={styles.closeBtnCircle}>
+                      <Text style={styles.closeBtn}>✕</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <View style={styles.searchBox}>
@@ -140,7 +203,7 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
                   placeholder="Mağaza veya adres ara..."
                   value={query}
                   onChangeText={search}
-                  autoFocus
+                  autoFocus={false}
                   clearButtonMode="while-editing"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -174,7 +237,7 @@ export function LocationPicker({ label, value, placeholder, onSelect }: Props) {
                   )
                 )}
               />
-            </View>
+            </Animated.View>
           </KeyboardAvoidingView>
         </View>
       </Modal>
@@ -216,6 +279,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'flex-end',
+    paddingTop: Platform.OS === 'ios' ? 100 : 80,
   },
   backdrop: { 
     ...StyleSheet.absoluteFillObject,
@@ -225,21 +289,43 @@ const styles = StyleSheet.create({
   },
   sheet: {
     backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     height: Platform.OS === 'ios' ? '80%' : '75%',
+    maxHeight: '100%',
     paddingBottom: 20,
   },
+  dragArea: {
+    paddingTop: 10,
+    alignItems: 'center',
+  },
+  handle: {
+    width: 40,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: '#DDD',
+    marginBottom: 5,
+  },
   sheetHeader: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 18,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
     borderBottomWidth: 0.5,
     borderBottomColor: Colors.border,
   },
   sheetTitle: { fontSize: 16, fontWeight: '700', color: Colors.txt },
-  closeBtn: { fontSize: 20, color: Colors.txt2, padding: 5 },
+  closeBtnCircle: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#F5F5F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeBtn: { fontSize: 14, color: Colors.txt2, fontWeight: 'bold' },
   
   searchBox: { 
     padding: 14,
